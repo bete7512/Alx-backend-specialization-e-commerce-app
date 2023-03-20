@@ -25,21 +25,14 @@ const handler = async (req, res) => {
       });
     }
 
-    console.log(user.user_roles);
-    let roles = [];
-    user.user_roles.forEach((role) => {
-      roles.push(role.role.name);
-    });
-
     const token = jwt.sign(
       {
         'https://hasura.io/jwt/claims': {
           'x-hasura-allowed-roles': [
             'admins',
-            'operator',
-            'technician',
+            'customers',
           ],
-          'x-hasura-default-role': roles[0],
+          'x-hasura-default-role': user.role.name,
           'x-hasura-user-id': `${user.id}`,
         },
       },
