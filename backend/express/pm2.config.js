@@ -7,7 +7,8 @@ module.exports = {
                 MODE_ENV: 'production'
             },
             exec_mode: 'cluster',
-            instances: 'max'
+            instances: 'max',
+            path:'/usr/bin/node'
         }
     ]
 }
