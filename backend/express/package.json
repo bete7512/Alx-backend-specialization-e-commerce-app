@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel ./ --out-dir ./build",
+    "build": "babel ./src --out-dir ./build",
     "start": "node --experimental-modules --es-module-specifier-resolution=node server.js",
-    "dev": "nodemon --exec babel-node server.js",
+    "dev": "nodemon --exec babel-node src/server.js",
     "lint": "eslint ."
   },
   "keywords": [],
