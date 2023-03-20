@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel ./src --out-dir ./build",
+    "build": "babel ./ --out-dir ./build",
     "start": "node --experimental-modules --es-module-specifier-resolution=node server.js",
     "dev": "nodemon --exec babel-node server.js",
     "lint": "eslint ."
