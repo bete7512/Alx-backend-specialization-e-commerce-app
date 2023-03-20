@@ -1,3 +1,79 @@
 table:
   name: customers
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+      filter: {}
+  - role: customers
+    permission:
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: admins
+    permission:
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+      filter: {}
+      check: {}
+  - role: customers
+    permission:
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: admins
+    permission:
+      filter: {}

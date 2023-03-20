@@ -1,3 +1,95 @@
 table:
   name: product_reviews
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+  - role: customers
+    permission:
+      check: {}
+      set:
+        customer_id: x-hasura-User-Id
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+  - role: customers
+    permission:
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+  - role: public
+    permission:
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+      allow_aggregations: true
+update_permissions:
+  - role: admins
+    permission:
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+      check: {}
+  - role: customers
+    permission:
+      columns:
+        - rate
+        - comment
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: admins
+    permission:
+      filter: {}
+  - role: customers
+    permission:
+      filter: {}

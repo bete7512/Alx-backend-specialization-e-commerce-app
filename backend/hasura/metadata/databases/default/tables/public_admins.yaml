@@ -1,3 +1,50 @@
 table:
   name: admins
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - updated_at
+        - id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+update_permissions:
+  - role: admins
+    permission:
+      columns:
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: admins
+    permission:
+      filter: {}

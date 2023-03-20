@@ -1,3 +1,54 @@
 table:
   name: products
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - price
+        - about_product
+        - product_description
+        - product_image
+        - product_name
+        - created_at
+        - updated_at
+        - id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - price
+        - about_product
+        - product_description
+        - product_image
+        - product_name
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+      allow_aggregations: true
+  - role: customers
+    permission:
+      columns:
+        - price
+        - about_product
+        - product_description
+        - product_image
+        - product_name
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+  - role: public
+    permission:
+      columns:
+        - price
+        - about_product
+        - product_description
+        - product_image
+        - product_name
+        - created_at
+        - updated_at
+        - id
+      filter: {}

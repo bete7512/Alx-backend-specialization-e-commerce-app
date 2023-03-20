@@ -1,3 +1,49 @@
 table:
   name: cart
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - quantity
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+  - role: customers
+    permission:
+      check: {}
+      set:
+        customer_id: x-hasura-User-Id
+      columns:
+        - quantity
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - quantity
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+  - role: customers
+    permission:
+      columns:
+        - quantity
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter:
+        customer_id:
+          _eq: X-Hasura-User-Id

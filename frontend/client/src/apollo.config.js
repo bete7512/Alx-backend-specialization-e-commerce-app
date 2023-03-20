@@ -9,7 +9,7 @@ const getHeaders = () => {
     return headers;
   };
 const httpLink = createHttpLink({
-    uri:'https://fullstack-ecommerce.hasura.app/v1/graphql',
+    uri:'https://alx-full-stack.hasura.app/v1/graphql',
     fetch,
     headers:getHeaders()
 })

@@ -1,3 +1,79 @@
 table:
   name: order
   schema: public
+insert_permissions:
+  - role: admins
+    permission:
+      check: {}
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+  - role: customers
+    permission:
+      check: {}
+      set:
+        customer_id: x-hasura-User-Id
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+  - role: customers
+    permission:
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter:
+        customer_id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: admins
+    permission:
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+      check: {}
+  - role: customers
+    permission:
+      columns:
+        - status
+        - created_at
+        - updated_at
+        - customer_id
+        - id
+        - product_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: admins
+    permission:
+      filter: {}
+  - role: customers
+    permission:
+      filter: {}

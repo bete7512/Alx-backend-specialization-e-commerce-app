@@ -6,7 +6,11 @@ actions:
   - name: login
     definition:
       kind: synchronous
-      handler: http://host.docker.internal:3000/login
+      handler: http://178.128.195.69/login
+    permissions:
+      - role: public
+      - role: customers
+      - role: admins
   - name: signup
     definition:
       kind: synchronous
