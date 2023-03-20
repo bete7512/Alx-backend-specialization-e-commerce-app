@@ -59,15 +59,15 @@
             </div>
         </div> -->
     </div>
-    <AddCompany v-if="!company.have_company" v-on:close="company.have_company = true"></AddCompany>
+    <!-- <AddCompany v-if="!company.have_company" v-on:close="company.have_company = true"></AddCompany> -->
 </template>
 <script setup>
 import {computed,ref} from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
-import AddCompany from './Products/AddCompany/AddCompany.vue';
-import { CompanyStore } from '../stores/CompanyStore';
-const company = CompanyStore();
+// import AddCompany from './Products/AddCompany/AddCompany.vue';
+// import { CompanyStore } from '../stores/CompanyStore';
+// const company = CompanyStore();
 const limit = ref(5)
 const offset = ref(0)
 const { error, loading, result } = useQuery(gql`

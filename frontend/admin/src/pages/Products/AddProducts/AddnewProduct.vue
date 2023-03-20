@@ -21,25 +21,25 @@
                 <div :class="[card2 ? activeClass : inactiveClass]"
                     class="border-8 rounded-full p-4 h-8 w-8 flex justify-center items-center text-lg font-extrabold border-blue-800">
                     1</div>
-                <div :class="[card3 ? activeLine : inactiveLine]" class="h-2 w-8 bg-blue-800"></div>
+                <!-- <div :class="[card3 ? activeLine : inactiveLine]" class="h-2 w-8 bg-blue-800"></div>
                 <div :class="[card3 ? activeClass : inactiveClass]"
                     class="border-8 rounded-full p-4 h-8 w-8 flex justify-center items-center text-lg font-extrabold border-blue-800">
-                    3</div>
+                    3</div> -->
             </div>
             <div>
                 <div class=" justify-center  bg-white py-4  items-center  px-10" @submit.preventDefault="onSubmit">
                     <!-- :validation-schema="schema" v-slot="{ errors }" -->
                     <Card1 v-if="card1"></Card1>
                     <Card2 v-if="card2"></Card2>
-                    <Card3 v-if="card3"></Card3>
+                    <!-- <Card3 v-if="card3"></Card3> -->
 
                 </div>
                 <!-- {{ product.options }} -->
             </div>
             <div class="flex justify-center items-center">
-                <button v-if="card3 && !adding_option" @click="add_options"
+                <!-- <button v-if="card3 && !adding_option" @click="add_options"
                     class="px-4  py-2 bg-amber-600 rounded-lg">Add another
-                    options</button>
+                    options</button> -->
                 <button v-if="card3 && adding_option" @click="add_options"
                     class="px-4  py-2 bg-amber-600 rounded-lg">
                     <svg role="status" class="inline mr-3 w-4 h-4 text-white animate-spin" viewBox="0 0 100 101"

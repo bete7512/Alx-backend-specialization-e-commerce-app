@@ -40,7 +40,6 @@ mutation MyMutation($id: Int!) {
     id
   }
 }
-
    `, () => ({
     variables: {
       id: props.id

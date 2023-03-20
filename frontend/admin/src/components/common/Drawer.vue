@@ -1,7 +1,7 @@
 <template>
   <div class="w-72 fixed bg-stone-900 z-10 h-screen ">
     <div class="flex justify-center  space-x-3  pr-3 items-center pt-3">
-      <div class="text-white inline-flex p-10">{{company.name}}</div>
+      <div class="text-white inline-flex p-10">E-commerce</div>
     </div>
     <nav class="">
       <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
@@ -143,11 +143,11 @@
 </template>
 <script setup>
 import { defineEmits, reactive, ref, onMounted, computed } from 'vue';
-import { CompanyStore } from '../../stores/CompanyStore';
-const company = CompanyStore();
+// import { CompanyStore } from '../../stores/CompanyStore';
+// const company = CompanyStore();
 // const companies = computed(async () => { await company.seller_companies()})
-onMounted(() => {company.seller_companies()
-});
+// onMounted(() => {company.seller_companies()
+// });
 console.log("congratulation arrays are here");
 
 // console.log(company.companies);

@@ -15,11 +15,16 @@
             <option :value="cat.id" v-for="cat in product.categories" :key="cat.id" selected>{{cat.name}}</option>
             </select>
         </div>
-        <div class="space-y-3">
+        <!-- <div class="space-y-3">
             <label>SubCategory</label>
             <select name="" v-model="product.sub_category_id"  class="w-full border-black h-10 border-2 rounded">
             <option :value="cat.id" v-for="cat in product.subcategories.filter(elem=>elem.c_id === product.c_id)" :key="cat.id">{{cat.name}}</option>
             </select>
+        </div> -->
+        <div class="space-y-3">
+            <label>Price</label>
+            <textarea name="" v-model="product.price"
+                class="w-full border-black h-10 border-2 rounded"></textarea>
         </div>
     </div>
 </template>

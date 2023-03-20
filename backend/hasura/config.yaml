@@ -1,5 +1,5 @@
 version: 3
-endpoint: http://178.128.195.69
+endpoint: https://alx-full-stack.hasura.app
 metadata_directory: metadata
 actions:
   kind: synchronous
