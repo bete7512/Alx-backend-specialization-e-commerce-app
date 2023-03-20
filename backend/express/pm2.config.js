@@ -8,7 +8,7 @@ module.exports = {
             },
             exec_mode: 'cluster',
             instances: 'max',
-            path:'/usr/bin/node'
+            interpreter:'/usr/bin/node'
         }
     ]
 }
