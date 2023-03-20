@@ -65,7 +65,7 @@ import { useQuery } from '@vue/apollo-composable';
 import { ProductStore } from '../../stores/ProductStores';
 import gql from 'graphql-tag';
 import { defineProps,defineEmits } from 'vue';
-import { product_query } from '../../Constants/Query/query';
+import { PRODUCT_QUERY } from '../../Constants/Query/query';
 import { ref, computed } from 'vue';
 const props = defineProps({
     id: Number

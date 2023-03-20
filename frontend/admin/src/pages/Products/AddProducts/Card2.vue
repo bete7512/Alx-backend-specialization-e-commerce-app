@@ -44,8 +44,6 @@ const remove_image = (index) => {
     url.splice(index, 1)
 }
 onMounted(() => {
-    console.log("jhndfviuiuuiiubi");
-    console.log(product.ObjectFile);
 })
 
 // const objectfile = reactive([])
@@ -59,6 +57,7 @@ onMounted(() => {
 // }
 const changefile = async (e) => {
     product.file = e.target.files[0];
+    console.log(product.ObjectFile);
     const newurl = URL.createObjectURL(product.file);
     url.push(newurl);
     const reader = new FileReader();

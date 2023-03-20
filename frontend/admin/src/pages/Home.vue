@@ -12,7 +12,7 @@
                 </svg>
             </div>
             <div class="flex flex-col justify-center items-start">
-                <p class="text-2xl font-semibold">{{result.product_aggregate.aggregate.count}}</p>
+                <p class="text-2xl font-semibold">{{result.products_aggregate.aggregate.count}}</p>
                 <p class="text-sm font-semibold">Total Products</p>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 </svg>
             </div>
             <div class="flex flex-col justify-center items-start">
-                <p class="text-2xl font-semibold">{{result.product_orders_aggregate.aggregate.count}}</p>
+                <p class="text-2xl font-semibold">{{result.order_aggregate.aggregate.count}}</p>
                 <p class="text-sm font-semibold">Total orders</p>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 </svg>
             </div>
             <div class="flex flex-col justify-center items-start">
-                <p class="text-2xl font-semibold">0</p>
+                <p class="text-2xl font-semibold">{{ result.customers_aggregate.aggregate.count }}</p>
                 <p class="text-sm font-semibold">Total Reviews</p>
             </div>
         </div>
@@ -54,38 +54,36 @@
                 </svg>
             </div>
             <div class="flex flex-col justify-center items-start">
-                <p class="text-2xl font-semibold">1,234</p>
+                <p class="text-2xl font-semibold">{{ result.customers_aggregate.aggregate.count }}</p>
                 <p class="text-sm font-semibold">Total Reviews</p>
             </div>
         </div> -->
     </div>
-    <!-- <AddCompany v-if="!company.have_company" v-on:close="company.have_company = true"></AddCompany> -->
 </template>
 <script setup>
 import {computed,ref} from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
-// import AddCompany from './Products/AddCompany/AddCompany.vue';
-// import { CompanyStore } from '../stores/CompanyStore';
-// const company = CompanyStore();
-const limit = ref(5)
-const offset = ref(0)
 const { error, loading, result } = useQuery(gql`
 query MyQuery {
-  product_aggregate {
+  order_aggregate {
     aggregate {
-      count
+      count(distinct: false)
     }
   }
-  product_orders_aggregate {
+  customers_aggregate {
     aggregate {
-      count
+      count(distinct: false)
     }
   }
-}`,
-    { fetchPolicy: 'network-only' });
-// const orders_count = computed(() => result.value?.data?.order_aggregate?.aggregate?.count)
-// const products_count = computed(() => result.value?.data?.product_aggregate?.aggregate?.count)
+  products_aggregate {
+    aggregate {
+      count(distinct: false)
+    }
+  }
+}
+`,
+);
 </script>
 <style lang="">
     

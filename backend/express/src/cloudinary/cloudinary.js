@@ -1,4 +1,4 @@
-const cloudinary = require("cloudinary").v2;
+import cloudinary from 'cloudinary';
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'free-version-image-cloud',
   api_key: process.env.CLOUDINARY_API_KEY || '975767954323924',

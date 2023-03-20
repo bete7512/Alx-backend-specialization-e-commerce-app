@@ -34,7 +34,6 @@ import {ProductStore} from '../../../stores/ProductStores';
 const product = ProductStore();
 onMounted(() => {
     product.category()
-    product.subcategory()
 })
 </script>
 

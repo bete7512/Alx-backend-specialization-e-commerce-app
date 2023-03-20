@@ -21,8 +21,8 @@
                 <tr v-if="loading">jknds</tr>
                 <tr v-else v-for="pro in product" :key="pro.id"
                     class=" bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <td class="py-3 px-2">{{ pro.name }}</td>
-                    <td class="py-3 px-2">{{ pro.p_options.length }}</td>
+                    <td class="py-3 px-2">{{ pro.product_name }}</td>
+                    <td class="py-3 px-2">0</td>
                     <td class="py-3 px-2">0</td>
                     <td class="py-3 px-2">{{ pro.created_at }}</td>
                     <!-- <td class="py-3 px-2">patient.phone</td> -->
@@ -59,7 +59,7 @@
                     </td>
                 </tr>
             </tbody>
-            <div>{{ product.options }}</div>
+            <!-- <div>{{ product.options }}</div> -->
         </table>
 
         <!-- <div v-else>{{ product }}</div> -->
@@ -71,7 +71,6 @@
     <ProductDetail :id="id_param" v-if="detail_product" v-on:close="detail_product = false"></ProductDetail>
     <Delete v-if="isDelete" v-on:canceldelete="isDelete = false" :id="id_param" v-on:deletenotify="isDelete = false"></Delete>
 </template>
-
 <script setup>
 import AddnewProductVue from './AddProducts/AddnewProduct.vue';
 import { useQuery } from '@vue/apollo-composable';
@@ -79,32 +78,12 @@ import { ProductStore } from '../../stores/ProductStores';
 import gql from 'graphql-tag';
 import Delete from './Delete.vue'
 import ProductDetail from './ProductDetail.vue';
-import { product_query } from '../../Constants/Query/query';
+import { PRODUCT_QUERY } from '../../Constants/Query/query';
 import { ref, computed } from 'vue';
-const { error, result, loading } = useQuery(gql`
-query MyQuery {
-  product {
-    about_product
-    id
-    category {
-      name
-    }
-    name
-    created_at
-    p_options {
-      difference
-      name
-      image_url
-      price
-    }
-  }
-}
-`, {
-    fetchPolicy: 'network-only',
-});
+const { error, result, loading } = useQuery(PRODUCT_QUERY);
 const isDelete = ref(false);
 const products = ProductStore();
-const product = computed(() => result.value?.product ?? []);
+const product = computed(() => result.value?.products ?? []);
 const id_param = ref(0)
 const edit_product = ()=>{
 
