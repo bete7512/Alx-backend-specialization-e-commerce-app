@@ -24,20 +24,20 @@
                         </div>
                     </div>
                     <div class="sm:flex block space-x-4 w-full">
-                        <div class="space-y-3 sm:w-1/2 w-full">
-                            <label class="font-bold text-2xl">Email</label>
-                            <Field name="email" type="text" v-model="email" placeholder="enter your email address"
+                        <div class="space-y-3 w-full">
+                            <label class="font-bold text-2xl">Phone</label>
+                            <Field name="phone" type="text" v-model="phone" placeholder="enter your phone address"
                                 class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
-                                :class="{ 'is-invalid': errors.email }" />
-                            <div class="text-red-700">{{ errors.email }}</div>
+                                :class="{ 'is-invalid': errors.phone }" />
+                            <div class="text-red-700">{{ errors.phone }}</div>
                         </div>
-                        <div class="space-y-3 sm:w-1/2 w-full">
+                        <!-- <div class="space-y-3 sm:w-1/2 w-full">
                             <label class="font-bold text-2xl">Username</label>
                             <Field name="username" type="text" v-model="username" placeholder="enter username"
                                 class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                                 :class="{ 'is-invalid': errors.username }" />
                             <div class="text-red-700">{{ errors.username }}</div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="sm:flex block space-x-4 w-full">
                         <div class="space-y-3 sm:w-1/2 w-full">
@@ -55,13 +55,13 @@
                             <div class="text-red-700">{{ errors.cpassword }}</div>
                         </div>
                     </div>
-                    <div class="space-y-3">
+                    <!-- <div class="space-y-3">
                         <label class="font-bold text-2xl">Address</label>
                         <Field name="address" type="text" v-model="address" placeholder="enter your address"
                             class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                             :class="{ 'is-invalid': errors.address }" />
                         <div class="text-red-700">{{ errors.address }}</div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="text-red-600">{{ returnmessage }}</div>
                 <div class="pt-2">
@@ -109,7 +109,7 @@ const username = ref('')
 const password = ref('')
 const fname = ref('')
 const lname = ref('')
-const email = ref('')
+const phone = ref('')
 const cpassword = ref('')
 const address = ref('')
 const schema = Yup.object().shape({
@@ -117,19 +117,19 @@ const schema = Yup.object().shape({
         .required('First Name is required'),
     lname: Yup.string()
         .required('Last name is required'),
-    username: Yup.string()
-        .required('username is required'),
-    email: Yup.string()
-        .required('Email is required')
-        .email('Email is invalid'),
+    // username: Yup.string()
+    //     .required('username is required'),
+    phone: Yup.string()
+        .required('phone is required'),
+        // .phone('phone is invalid'),
     password: Yup.string()
         .min(3, 'Password must be at least 3 characters')
         .required('Password is required'),
     cpassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm Password is required'),
-    address: Yup.string()
-        .required('address is required'),
+    // address: Yup.string()
+    //     .required('address is required'),
     // acceptTerms: Yup.string()
     //     .required('Accept Ts & Cs is required')
 });
@@ -142,7 +142,7 @@ const processing = ref(false)
 //     let response =  user.signup({
 //             fname: 'fname.value',
 //             lname: 'lname.value',
-//             email: 'email.value',
+//             phone: 'phone.value',
 //             password:'password.value',
 //             address:'address.value'
 //         })
@@ -155,7 +155,7 @@ const onSubmit = async () => {
         returnmessage.value = await user.signup(
             fname.value,
             lname.value,
-            email.value,
+            phone.value,
             password.value,
             address.value,
             username.value

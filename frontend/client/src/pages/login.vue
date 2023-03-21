@@ -5,7 +5,7 @@
                 <span class="text-2xl font-semibold text-gray-700">Login</span>
             </div>
             <Form class=" justify-center space-y-6 bg-white   items-center  p-b-10 px-10"
-            @submit.preventDefault="onSubmit" :validation-schema="schema" v-slot="{ errors }">
+                @submit.preventDefault="onSubmit" :validation-schema="schema" v-slot="{ errors }">
                 <div class="space-y-10">
                     <div class="space-y-3">
                         <label>Email</label>
@@ -22,7 +22,7 @@
                         <div class="text-red-700">{{ errors.password }}</div>
                     </div>
                 </div>
-                <div class="text-red-600">{{ returnmessage }}</div>
+                <div class="text-red-600">{{ loginreturn }}</div>
                 <div class="pt-2">
                     <button type="submit"
                         class="flex items-center justify-center w-full px-10 py-2 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -42,22 +42,17 @@
                             Sign in
                         </div>
                     </button>
-                    <router-link to="/login">Forgot password</router-link>
-                    <br>
                     <div class="text-blue-900">
-                        <span class="txt1">
-							Don’t have an account?
-						</span>
                         <router-link to="/signup">Signup</router-link>
-                        
-                        
+                        <br>
+                        <router-link to="/login">Forgot password</router-link>
                     </div>
                 </div>
             </Form>
         </div>
     </div>
 </template>
-<script setup >
+<script setup>
 import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
 import { ref, onMounted } from 'vue'
@@ -73,26 +68,20 @@ const schema = Yup.object().shape({
         .min(3, 'Password must be at least 3 characters')
         .required('Password is required'),
 })
-// onMounted(() => {
-//     window.localStorage.removeItem('Apollotoken')
-// })
-const returnmessage = ref('')
 const user = UserStore()
-const loginprocess =ref(false)
+const loginreturn = ref('')
+const loginprocess = ref(false)
 const onSubmit = async () => {
     console.log('submit')
     loginprocess.value = true
     try {
-        // loginprocess.value = true
-
-        returnmessage.value = await user.login(email.value, password.value)
+        loginreturn.value = await user.login(email.value, password.value)
         loginprocess.value = false
-        // console.log(response);
     }
     catch (error) {
         loginprocess.value = false
-        returnmessage.value = error
-        // console.log(error);
+        console.log(error);
+        loginreturn.value = error.message
     }
 }
 </script>

@@ -35,8 +35,8 @@
     emit('canceldelete')
   }
   const { mutate: deleterecipe } = useMutation(gql`
-mutation MyMutation($id: Int!) {
-  delete_product_by_pk(id: $id) {
+  mutation MyMutation($id: uuid = "") {
+  delete_products_by_pk(id: $id) {
     id
   }
 }
