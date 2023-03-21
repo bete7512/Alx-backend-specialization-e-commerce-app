@@ -59,11 +59,13 @@
             </div>
         </div> -->
     </div>
+    <chart></chart>
 </template>
 <script setup>
 import {computed,ref} from 'vue'
 import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
+import chart from './cards/chart.vue'
 const { error, loading, result } = useQuery(gql`
 query MyQuery {
   order_aggregate {

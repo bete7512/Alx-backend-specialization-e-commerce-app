@@ -2,9 +2,8 @@
   <div v-if="error">{{error}}</div>
   <div v-if="loading">{{ loading }}</div>
   <div v-else class="lg:flex lg:flex-wrap  block justify-center space-x-2">
-    {{ result  }}
-    <div class="pt-5 px-4 flex justify-center" v-for="p in 7">
-      <Product ></Product>
+    <div class="pt-5 px-4 flex justify-center" v-for="product in result.products">
+      <Product :product="product" ></Product>
     </div>
   </div>
 </template>

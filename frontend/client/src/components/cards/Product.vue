@@ -2,7 +2,7 @@
     <div
         class="card hover:border  hover:shadow-xl h-[450px]  hover:border-sky-800 duration-100 mt-2 sm:w-3/4  hover:scale-100  md:w-3/4 lg:w-96 w-full sm:px-0  bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div class="relative h-[50%]">
-            <img class="rounded-t-lg w-full h-[100%]" :src="recipe.images" />
+            <img class="rounded-t-lg w-full h-[100%]" :src="product.product_image.split(',')[0]" />
             <!-- @click="managefavorite(recipe.id, recipe.isfavorite) -->
             <button
                 class="absolute top-5 right-0 pr-3 w-12 h-12 rounded-full hover:shadow-transparent hover:bg-slate-800 bg-white ">
@@ -26,13 +26,13 @@
             <router-link :to="'/recipedetail/' + recipe.id">
                 <div>
                     <h5 class="mb-2 hover:underline text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                        <strong>{{ recipe.title }}</strong>
+                        <strong>{{ product.product_name }}</strong>
                     </h5>
                 </div>
             </router-link>
             <div class="flex justify-between py-3">
-                <!-- <StarRating v-model:rating="recipe.rating" :read-only="true" :increment="0.01" :star-size="12">
-                </StarRating> -->
+                <StarRating v-model:rating="recipe.rating" :read-only="true" :increment="0.01" :star-size="12">
+                </StarRating>
                 <div class="flex space-x-1 items-center">
                     <!-- @click="managelikes(recipe.id, recipe.isliked) -->
                     <button >
@@ -50,6 +50,10 @@
                     <div class="text-xs">Helpfull({{ recipe.Like_number }})</div>
                 </div>
             </div>
+            <div class="line-clamp-3">{{ product.about_product }}</div>
+            <div>
+                {{ formattedDate }}
+            </div>
             
         </div>
     </div>
@@ -60,14 +64,16 @@ import { defineProps, reactive, ref } from 'vue';
 import StarRating from 'vue-star-rating'
 
 
-// const props = defineProps({
-//     recipe: {
-//         type: Object,
-//         required: true,
-//     },
-// });
 
+const props = defineProps({
+    product: {
+        type: Object,
+        required: true,
+    },
+});
 
+const date = new Date(props.product.created_at);
+const formattedDate = date.toLocaleString(); 
 const recipe = reactive([
     {
         id:0,
