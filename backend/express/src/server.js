@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: '200mb' }));
 
 app.get('/', (req, res) => {
-  res.send('helllo world')
+  res.send('not only hello world')
 });
 
 app.post('/:route', async  (req, res) => {
