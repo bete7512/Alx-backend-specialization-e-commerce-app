@@ -1,10 +1,10 @@
-name: Node js Express CI/CD
+# name: Node js Express CI/CD
 
 on:
   push:
     branches: [main]
     paths:
-      - '/backend/express/'
+      - '/backend/'
 jobs:
   build:
     runs-on: self-hosted
