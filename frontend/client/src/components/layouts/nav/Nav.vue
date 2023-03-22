@@ -225,59 +225,19 @@
 </template>
 <script setup>
 // import { ProductStore } from '../../stores/productStore';
-import { ref, reactive } from "vue";
+import { ref, reactive,onMounted } from "vue";
 // import { UserStore } from '../../stores/userStore';
+import {ProductStore} from '../../../stores/product_store'
 import router from "../../../router/index";
 // const user = UserStore();
 // const product = ProductStore();
-
+const product = ProductStore();
 const user = reactive({
   userLoggedin: false,
 });
 
-const product = reactive({
-  categories: [
-    {
-      name: "All",
-      id: 0,
-    },
-    {
-      name: "Fruits",
-      id: 1,
-    },
-    {
-      name: "Vegetables",
-      id: 2,
-    },
-    {
-      name: "Meat",
-      id: 3,
-    },
-    {
-      name: "Fish",
-      id: 4,
-    },
-    {
-      name: "Dairy",
-      id: 5,
-    },
-    {
-      name: "Bakery",
-      id: 6,
-    },
-    {
-      name: "Beverages",
-      id: 7,
-    },
-    {
-      name: "Snacks",
-      id: 8,
-    },
-    {
-      name: "Others",
-      id: 9,
-    },
-  ],
+onMounted(() => {
+  product.getCategories()
 });
 
 const dropdownOpen = ref(false);

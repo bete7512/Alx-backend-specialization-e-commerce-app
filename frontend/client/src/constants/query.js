@@ -63,3 +63,14 @@ query MyQuery {
   }
 }
 `;
+
+export const CATEGORY = gql`
+  query MyQuery {
+    category {
+      created_at
+      id
+      name
+      updated_at
+    }
+  }
+`;

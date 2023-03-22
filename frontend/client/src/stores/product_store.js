@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { provideApolloClient } from '@vue/apollo-composable';
 import apolloclient from '../apollo.config'
-import { buyer_login, buyer_signup,CATEGORY_FECTH,ADD_ORDER,INSERT_TO_CART } from '../Constants/Query'
+import { CATEGORY } from '../constants/query'
 import router from '../router/index'
 provideApolloClient(apolloclient);
 export const ProductStore = defineStore("products", {
@@ -15,7 +15,7 @@ export const ProductStore = defineStore("products", {
         async getCategories(){
             try {
                 const response = await apolloclient.query({
-                    query: CATEGORY_FECTH
+                    query: CATEGORY
                 })
                 this.categories = response.data.category
                 console.log(this.categories);
