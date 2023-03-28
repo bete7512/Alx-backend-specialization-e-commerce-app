@@ -28,6 +28,7 @@
                 </svg>
               </div>
               <input
+                v-model="product.search"
                 type="search"
                 id="default-search"
                 class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600"
@@ -35,6 +36,7 @@
                 required
               />
               <button
+                @click="searchProduct()"
                 type="submit"
                 class="text-white absolute right-0 bottom-0 top-0 bg-orange-600 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-r-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
@@ -51,14 +53,11 @@
                                     <path
                                         d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                 </svg> -->
-                <select class="p-4" id="">
-                  <option v-for="cat in product.categories" value="">
-                    <select name="" id="">
-                      {{
-                        cat.name
-                      }}
-                      <option value=""></option>
-                    </select>
+                <select v-model="product.category" class="p-4" id="">
+                  <option v-for="cat in product.categories" :value="cat.name">
+                    <!-- <select  name="" id=""> -->
+                      <option :value="cat.name">{{ cat.name }}</option>
+                    <!-- </select> -->
                   </option>
                 </select>
               </div>
@@ -97,33 +96,7 @@
                         </div> -->
           </router-link>
         </div>
-        <!-- <div class="relative" v-if="user.userLoggedin">
-                    <button @click="dropdownOpen = !dropdownOpen"
-                        class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                        <img class="object-cover w-full h-full" src="../../assets/meron.jpg" alt="Your avatar" />
-                    </button>
 
-                    <div v-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full">
-                    </div>
-
-                    <transition enter-active-class="transition duration-150 ease-out transform"
-                        enter-from-class="scale-95 opacity-0" enter-to-class="scale-100 opacity-100"
-                        leave-active-class="transition duration-150 ease-in transform"
-                        leave-from-class="scale-100 opacity-100" leave-to-class="scale-95 opacity-0">
-                        <div v-show="dropdownOpen"
-                            class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a>
-                            <a href="#"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Announcement</a>
-
-                            <router-link to="/"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
-                                Log out
-                            </router-link>
-                        </div>
-                    </transition>
-                </div> -->
         <div class="flex space-x-1 h-full justify-center items-center">
           <router-link
             to="/carts"
@@ -143,9 +116,9 @@
             </svg>
           </router-link>
         </div>
-        <div class=" space-x-1 h-full ">
+        <div class="space-x-1 h-full">
           <router-link
-            to="/"
+            to="/favorite"
             class="text-lg h-full justify-center items-center hover:bg-red-900 hover:text-white px-4 flex space-x-2"
           >
             <svg
@@ -224,20 +197,15 @@
   </div>
 </template>
 <script setup>
-// import { ProductStore } from '../../stores/productStore';
-import { ref, reactive,onMounted } from "vue";
-// import { UserStore } from '../../stores/userStore';
-import {ProductStore} from '../../../stores/product_store'
+import { ref, reactive, onMounted } from "vue";
 import router from "../../../router/index";
-// const user = UserStore();
-// const product = ProductStore();
+import { ProductStore } from "../../../stores/product_store";
+import { UserStore } from "../../../stores/user_store";
+const user = UserStore();
 const product = ProductStore();
-const user = reactive({
-  userLoggedin: false,
-});
 
 onMounted(() => {
-  product.getCategories()
+  product.getCategories();
 });
 
 const dropdownOpen = ref(false);

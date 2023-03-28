@@ -41,7 +41,7 @@ export const UserStore = defineStore("user", {
                     }
                 })
                 localStorage.setItem('Apollotoken', response.data.login.accestoken)
-                console.log(response.data);
+                console.log("njhnjhhhhhhhhhhhhhhhhhhhhhhhjh",response.data);
                 if(window.localStorage.getItem('Apollotoken')){
                     await this.user_profile(response.data.login.id)
                     router.push('/')

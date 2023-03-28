@@ -39,29 +39,16 @@ const CATEGORY = gql`
 `;
 
 const INSERT_PRODUCT = gql`
-  mutation MyMutation(
-    $about_product: String = ""
-    $price: Float = 1.5
-    $product_description: String = ""
-    $product_image: String = ""
-    $product_name: String = ""
-  ) {
-    insert_products(
-      objects: {
-        about_product: $about_product
-        price: $price
-        product_description: $product_description
-        product_image: $product_image
-        product_name: $product_name
-      }
-    ) {
-      affected_rows
-      returning {
-        id
-        product_name
-      }
+mutation MyMutation($about_product: String = "", $price: Float = 1.5, $product_description: String = "", $product_image: String = "", $product_name: String = "", $category_id: uuid = "") {
+  insert_products(objects: {about_product: $about_product, price: $price, product_description: $product_description, product_image: $product_image, product_name: $product_name, category_id: $category_id}) {
+    affected_rows
+    returning {
+      id
+      product_name
     }
   }
+}
+
 `;
 
 

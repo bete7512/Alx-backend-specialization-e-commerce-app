@@ -44,14 +44,15 @@ export const USER_PROFILE = gql`
 `;
 
 export const GET_ALL_PRODUCTS = gql`
-query MyQuery {
-  products {
+query MyQuery($search: String = "%%", $offset: Int = 0, $limit: Int = 10) {
+  products(where: {_or: [{product_name: {_ilike: $search}}, {product_description: {_ilike: $search}}, {category: {name: {_ilike: $search}}}]}, limit: $limit, offset: $offset) {
     about_product
     created_at
     id
     price
     product_description
     product_image
+    average_rate
     product_name
     updated_at
     category_id
@@ -60,8 +61,13 @@ query MyQuery {
       id
       created_at
     }
+    number_of_likes
+    is_carted
+    is_favorite
+    is_liked
   }
 }
+
 `;
 
 export const CATEGORY = gql`
@@ -73,4 +79,87 @@ export const CATEGORY = gql`
       updated_at
     }
   }
+`;
+
+export const CART_QUERY = gql`
+query MyQuery {
+  cart {
+    product {
+      about_product
+      average_rates
+      category {
+        name
+      }
+      created_at
+      is_carted
+      id
+      is_favorite
+      is_liked
+      number_of_likes
+      price
+      product_description
+      product_image
+      product_name
+      updated_at
+      is_ordered
+      average_rate
+    }
+    quantity
+  }
+}
+`
+
+
+export const FAVORITE_QUERY = gql`
+query MyQuery {
+  favorite {
+    product {
+      created_at
+      category {
+        name
+      }
+      about_product
+      average_rates
+      id
+      is_carted
+      is_favorite
+      is_liked
+      number_of_likes
+      price
+      product_description
+      product_image
+      product_name
+      updated_at
+      is_ordered
+      average_rate
+    }
+    created_at
+  }
+}
+
+`;
+
+
+export const QUERY_ORDER = gql`
+query MyQuery {
+  order {
+    product {
+      about_product
+      average_rates
+      created_at
+      is_carted
+      id
+      is_favorite
+      is_liked
+      is_ordered
+      number_of_likes
+      price
+      product_description
+      product_image
+      product_name
+      updated_at
+    }
+    status
+  }
+}
 `;
