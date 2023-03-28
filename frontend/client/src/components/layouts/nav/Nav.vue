@@ -3,7 +3,7 @@
     <div
       class="flex justify-between items-center text-black bg-[#ffffff] px-10 h-20"
     >
-      <div class="text-4-xl font-bold">E-commerce</div>
+      <router-link to="/" class="text-4-xl font-bold">E-commerce</router-link>
       <div>
         <div>
           <div class="flex relative justify-center items-center space-x-3">

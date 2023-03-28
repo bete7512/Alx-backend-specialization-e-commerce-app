@@ -1,11 +1,14 @@
+import {User} from '../tools/user'
+import {v4 as uuidv4 } from 'uuid'
 const Chapa = require('./payment/chap')
+
 let myChapa = new Chapa('CHASECK_TEST-R2r7oy9nnhaZuJLpM47VxYVHZXadMkS6')
-const QUERY_BUYER = `
-query MyQuery($id: Int!) {
-    buyer_by_pk(id: $id) {
-      email
+const CUSTOMER_QUERY = `
+query MyQuery($id: uuid = "") {
+    customers_by_pk(id: $id) {
       first_name
       last_name
+      phone
       id
     }
   }
@@ -34,16 +37,15 @@ response:
 const handler = async (req, res) => {
     
     const id = parseInt(req.body.event.session_variables['x-hasura-user-id']);
-    const finduser = require('./payment/Finduser')
-    const data = await finduser({ id: id }, QUERY_BUYER)
-    if (data) {
+    const user = User(id,CUSTOMER_QUERY)
+    if (user) {
         const customerInfo = {
             amount: '100',
             currency: 'ETB',
-            email: data['data']['buyer_by_pk']['email'],
-            first_name: data['data']['buyer_by_pk']['first_name'],
-            last_name: data['data']['buyer_by_pk']['last_name'],
-            // tx_ref: 'tx-x12345',
+            email: data['data']['customers_by_pk']['phone'],
+            first_name: data['data']['customers_by_pk']['first_name'],
+            last_name: data['data']['customers_by_pk']['last_name'],
+            tx_ref: uuidv4(),
             callback_url: 'https://chapa.co', // your callback URL
             customization: {
                 title: 'I love e-commerce',

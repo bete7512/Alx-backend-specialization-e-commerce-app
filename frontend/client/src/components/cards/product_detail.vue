@@ -47,17 +47,17 @@
             <div>
               <button
                 v-if="!result.products_by_pk.is_carted"
-                @click="addcomment"
+                @click="add_cart(result.products_by_pk.id)"
                 class="flex w-auto p-10 py-4 my-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 add to cart
               </button>
               <button
                 v-else
-                @click="addcomment"
+                @click="remove_cart(result.products_by_pk.id)"
                 class="flex w-auto p-10 py-4 my-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                add to cart
+               remove from cart
               </button>
             </div>
           </div>
@@ -92,7 +92,7 @@
           </div>
           <div>
             <h1>Product reviews</h1>
-            <div
+            <div v-if="result.products_by_pk.product_reviews.length > 0"
               class="py-2"
               v-for="comment in result.products_by_pk.product_reviews"
               :key="comment.id"
@@ -249,6 +249,28 @@ const add_comment = async () => {
     location.reload();
   }
   let res = await product.add_comment(props.id, rate.value, comment.value);
+  console.log(res);
+};
+
+const add_cart = async (id) => {
+  if (!localStorage.getItem("Apollotoken")) {
+    emits("close");
+    router.push("/login");
+    // location.reload();
+  }
+
+  let res = await product.add_cart(props.id,1);
+  console.log(res);
+};
+
+const remove_cart = async (id) => {
+  if (!localStorage.getItem("Apollotoken")) {
+    emits("close");
+    router.push("/login");
+    // location.reload();
+  }
+
+  let res = await product.remove_cart(props.id);
   console.log(res);
 };
 </script>

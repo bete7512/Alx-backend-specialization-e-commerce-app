@@ -249,6 +249,7 @@ export const ProductStore = defineStore("products", {
     },
 
     async add_cart(product_id, quantity) {
+        console.log(product_id, quantity);
         try {
             const response = await apolloclient.mutate({
                 mutation: gql`mutation MyMutation($product_id: uuid = "", $quantity: Int = 1) {
@@ -262,15 +263,17 @@ export const ProductStore = defineStore("products", {
                 }
             })
             console.log(response.data)
+            location.reload()
             return response.data
 
         } catch (error) {
-            
+            console.log(error);
         }
     },
 
     async remove_cart(product_id) {
         try {
+            console.log(product_id);
             const response = await apolloclient.mutate({
                 mutation: gql`mutation MyMutation($product_id: uuid = "") {
                     delete_cart(where: {product_id: {_eq: $product_id}}) {
@@ -281,30 +284,34 @@ export const ProductStore = defineStore("products", {
                     product_id: product_id
                 }
             })
+            location.reload()
             console.log(response.data)
             return response.data
 
         } catch (error) {
-            
+            console.log(error);
         }
     },
-    async add_order(product_id, quantity) {
+    async add_order(product_id) {
+        console.log('from              davnjsnvljns');
         try {
             const response = await apolloclient.mutate({
-                mutation: gql`mutation MyMutation($product_id: uuid = "", $quantity: Int = 1) {
-                    insert_orders(objects: {product_id: $product_id, quantity: $quantity}) {
+                mutation: gql`mutation MyMutation($product_id: uuid = "") {
+                    insert_order(objects: {product_id: $product_id}) {
                       affected_rows
                     }
-                  }`,
+                  }
+                  `,
                 variables: {
                     product_id: product_id,
-                    quantity: quantity
                 }
             })
+            location.reload()
             console.log(response.data)
             return response.data
 
         } catch (error) {
+            console.log(error);
             
         }
     }
