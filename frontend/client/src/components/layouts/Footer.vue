@@ -13,9 +13,8 @@
             <div>
                 <div class="font-bold">Conatct us</div>
                 <div>
-                <a href="http://www.linkedin.com/in/solomon-legesse" >linkedin</a> <br>
-                <a href="https://github.com/solomon244">github</a><br>
-                <a href="https://twitter.com/solomon2436">twitter</a>
+                <a href="http://www.linkedin.com/in/solomon-legesse" >Linkedin</a> <br>
+                <a href="https://github.com/solomon244">Github</a><br>
                 </div> 
             </div>
             <div class="font-bold">
