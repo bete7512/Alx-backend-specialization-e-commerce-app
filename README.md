@@ -31,3 +31,8 @@ npm run dev
 npm run build
 ```
 
+![image](https://user-images.githubusercontent.com/99808732/228508357-b3513a70-7541-464e-830b-0ba8adba3fdc.png)
+
+![image](https://user-images.githubusercontent.com/99808732/228509015-7eaea42a-08df-4494-846d-7df62e988b4c.png)
+
+![image](https://user-images.githubusercontent.com/99808732/228510453-d4f8a92d-589c-448a-ac91-d2b0ceb69ca0.png)
