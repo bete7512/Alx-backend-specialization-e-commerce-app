@@ -31,6 +31,12 @@ npm run dev
 npm run build
 ```
 
+## Authors
+   Bete Goshme-[Github](https://github.com/bete7512) / [Twitter](https://twitter//) 
+
+   Solomon Legesse - [Github](https://github.com/solomon244) / [Twitter](https://twitter/solomon2436.com/)  
+
+   
 ![image](https://user-images.githubusercontent.com/99808732/228508357-b3513a70-7541-464e-830b-0ba8adba3fdc.png)
 
 ![image](https://user-images.githubusercontent.com/99808732/228509015-7eaea42a-08df-4494-846d-7df62e988b4c.png)
