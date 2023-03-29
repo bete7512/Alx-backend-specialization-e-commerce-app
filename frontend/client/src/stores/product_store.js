@@ -42,33 +42,7 @@ export const ProductStore = defineStore("products", {
         return err.message;
       }
     },
-    async add_order(id) {
-      if (!localStorage.getItem("Apollotoken")) {
-        console.log("not logged in");
-        router.push("/login");
-        return;
-      }
-      try {
-        const response = await apolloclient.mutate({
-          mutation: gql`
-          mutation MyMutation($product_id: String = "8b2cc37a-9a17-4995-98ec-f84a4983c6fb") {
-            add_order(inputs: {product_id: $product_id}) {
-              check_out
-            }
-          }          
-          `,
-          variables: {
-            product_id: id,
-          },
-        });
-        console.log(response);
-        location.replace(response.data.add_order.check_out);
-        return response.data.add_order.check_out;
-      } catch (err) {
-        console.log(err);
-        return err.message;
-      }
-    },
+
     async add_to_cart(id) {
       if (!localStorage.getItem("Apollotoken")) {
         router.push("/login");
@@ -256,72 +230,82 @@ export const ProductStore = defineStore("products", {
     },
 
     async add_cart(product_id, quantity) {
-        console.log(product_id, quantity);
-        try {
-            const response = await apolloclient.mutate({
-                mutation: gql`mutation MyMutation($product_id: uuid = "", $quantity: Int = 1) {
-                    insert_cart(objects: {product_id: $product_id, quantity: $quantity}) {
-                      affected_rows
-                    }
-                  }`,
-                variables: {
-                    product_id: product_id,
-                    quantity: quantity
-                }
-            })
-            console.log(response.data)
-            location.reload()
-            return response.data
-
-        } catch (error) {
-            console.log(error);
-        }
+      console.log(product_id, quantity);
+      try {
+        const response = await apolloclient.mutate({
+          mutation: gql`
+            mutation MyMutation($product_id: uuid = "", $quantity: Int = 1) {
+              insert_cart(
+                objects: { product_id: $product_id, quantity: $quantity }
+              ) {
+                affected_rows
+              }
+            }
+          `,
+          variables: {
+            product_id: product_id,
+            quantity: quantity,
+          },
+        });
+        console.log(response.data);
+        location.reload();
+        return response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
 
     async remove_cart(product_id) {
-        try {
-            console.log(product_id);
-            const response = await apolloclient.mutate({
-                mutation: gql`mutation MyMutation($product_id: uuid = "") {
-                    delete_cart(where: {product_id: {_eq: $product_id}}) {
-                      affected_rows
-                    }
-                  }`,
-                variables: {
-                    product_id: product_id
-                }
-            })
-            location.reload()
-            console.log(response.data)
-            return response.data
-
-        } catch (error) {
-            console.log(error);
-        }
+      try {
+        console.log(product_id);
+        const response = await apolloclient.mutate({
+          mutation: gql`
+            mutation MyMutation($product_id: uuid = "") {
+              delete_cart(where: { product_id: { _eq: $product_id } }) {
+                affected_rows
+              }
+            }
+          `,
+          variables: {
+            product_id: product_id,
+          },
+        });
+        location.reload();
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    async add_order(product_id) {
-        console.log('from              davnjsnvljns');
-        try {
-            const response = await apolloclient.mutate({
-                mutation: gql`mutation MyMutation($product_id: uuid = "") {
-                    insert_order(objects: {product_id: $product_id}) {
-                      affected_rows
-                    }
-                  }
-                  `,
-                variables: {
-                    product_id: product_id,
-                }
-            })
-            location.reload()
-            console.log(response.data)
-            return response.data
-
-        } catch (error) {
-            console.log(error);
-            
-        }
-    }
+    async add_order(id) {
+      if (!localStorage.getItem("Apollotoken")) {
+        console.log("not logged in");
+        router.push("/login");
+        return;
+      }
+      try {
+        const response = await apolloclient.mutate({
+          mutation: gql`
+            mutation MyMutation(
+              $product_id: String = "8b2cc37a-9a17-4995-98ec-f84a4983c6fb"
+            ) {
+              add_order(inputs: { product_id: $product_id }) {
+                check_out
+              }
+            }
+          `,
+          variables: {
+            product_id: id,
+          },
+        });
+        console.log(response);
+        location.replace(response.data.add_order.check_out);
+        return response.data.add_order.check_out;
+      } catch (err) {
+        console.log(err);
+        return err.message;
+      }
+    },
   },
   getters: {},
 });

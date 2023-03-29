@@ -1,2 +1,4 @@
 node_modules
 build
+railway.json
+vercel.json
