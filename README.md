@@ -36,9 +36,10 @@ npm run build
 
    Solomon Legesse - [Github](https://github.com/solomon244) / [Twitter](https://twitter/solomon2436.com/)  
 
-   
+   ## Client
 ![image](https://user-images.githubusercontent.com/99808732/228508357-b3513a70-7541-464e-830b-0ba8adba3fdc.png)
 
 ![image](https://user-images.githubusercontent.com/99808732/228509015-7eaea42a-08df-4494-846d-7df62e988b4c.png)
 
+## Admin
 ![image](https://user-images.githubusercontent.com/99808732/228510453-d4f8a92d-589c-448a-ac91-d2b0ceb69ca0.png)
