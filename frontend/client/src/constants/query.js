@@ -45,7 +45,7 @@ export const USER_PROFILE = gql`
 
 export const GET_ALL_PRODUCTS = gql`
 query MyQuery($search: String = "%%", $offset: Int = 0, $limit: Int = 10) {
-  products(where: {_or: [{product_name: {_ilike: $search}}, {product_description: {_ilike: $search}}, {category: {name: {_ilike: $search}}}]}, limit: $limit, offset: $offset) {
+  products(where: {_or: [{product_name: {_ilike: $search}},{category: {name: {_ilike: $search}}}]}, limit: $limit, offset: $offset) {
     about_product
     created_at
     id

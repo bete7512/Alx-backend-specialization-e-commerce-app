@@ -1,9 +1,9 @@
 <template>
   <div v-if="error">{{ error }}</div>
   <div v-if="loading">{{ loading }}</div>
-  <div v-else class="lg:flex lg:flex-wrap block justify-center space-x-2">
-  <div class="flex  items-center">
-       <div>
+  <div v-else class="py-3">
+    <div class="flex items-center justify-center mt-3">
+      <div>
         <div>
           <div class="flex relative justify-center items-center space-x-3">
             <div class="relative sm:w-96 md:96">
@@ -27,7 +27,7 @@
                 </svg>
               </div>
               <input
-                v-model="product.search"
+                v-model="search"
                 type="search"
                 id="default-search"
                 class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600"
@@ -52,11 +52,14 @@
                                     <path
                                         d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                                 </svg> -->
-                <select v-model="product.category" class="p-4" id="">
-                  <option v-for="cat in product.categories" :value="cat.name">
-                    <!-- <select  name="" id=""> -->
-                      <option :value="cat.name">{{ cat.name }}</option>
-                    <!-- </select> -->
+                <select v-model="category" class="p-4" id="">
+                  <option value="All">All</option>
+                  <option
+                    v-for="(cat, index) in product.categories"
+                    :key="index"
+                    :value="cat.name"
+                  >
+                    {{ cat.name }}
                   </option>
                 </select>
               </div>
@@ -64,12 +67,16 @@
           </div>
         </div>
       </div>
-  </div>
-    <div
-      class="pt-5 px-4 flex justify-center"
-      v-for="product in products"
-    >
-      <Product :product="product"  v-on:detail="handle_detail"></Product>
+    </div>
+    <div class="lg:flex lg:flex-wrap block justify-center space-x-2">
+      <div
+        class="pt-5 px-4 flex justify-center"
+        v-for="product in products
+        .filter((product)=>category == 'All' ? product : product.category.name == category)
+        "
+      >
+        <Product :product="product" v-on:detail="handle_detail"></Product>
+      </div>
     </div>
   </div>
   <div class="flex justify-end mr-2 mt-1 pb-5">
@@ -99,13 +106,22 @@
     </div>
   </div>
 
-  
-<product_detail v-if="is_product_detail" :id="product_id" v-on:close="is_product_detail=false"></product_detail>
-
+  <product_detail
+    v-if="is_product_detail"
+    :id="product_id"
+    v-on:close="is_product_detail = false"
+  ></product_detail>
 </template>
 
 <script setup>
-import { defineProps, reactive, ref, onMounted, watchEffect,computed } from "vue";
+import {
+  defineProps,
+  reactive,
+  ref,
+  onMounted,
+  watchEffect,
+  computed,
+} from "vue";
 import { useQuery } from "@vue/apollo-composable";
 import Product from "../components/cards/Product.vue";
 import { GET_ALL_PRODUCTS } from "../constants/query";
@@ -113,24 +129,22 @@ import { ProductStore } from "../stores/product_store";
 import product_detail from "../components/cards/product_detail.vue";
 const offset = ref(0);
 const limit = ref(5);
-const { error, loading, result, refetch } = useQuery(GET_ALL_PRODUCTS,
-{
-    offset: offset.value,
-    limit: limit.value,
-  }
-);
+const { error, loading, result, refetch } = useQuery(GET_ALL_PRODUCTS, {
+  offset: offset.value,
+  limit: limit.value,
+});
 const products = computed(() => result.value?.products ?? []);
 const product = ProductStore();
 // onMounted(async ()=>{
 //   await product.getProducts()
 // })
-const product_id = ref('')
-const is_product_detail = ref(false)
+const product_id = ref("");
+const is_product_detail = ref(false);
 const handle_detail = (id) => {
-  console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhh",id);
+  console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhh", id);
   product_id.value = id;
   is_product_detail.value = true;
-}
+};
 const prev_page = () => {
   if (offset.value <= 0) return;
   offset.value -= limit.value;
@@ -148,6 +162,17 @@ const next_page = () => {
   });
 };
 
+const search = ref("");
+const category = ref("All");
+watchEffect(()=>{
+  category.value ? result.value?.products.filter((p)=>p.category.name == category.value) : result.value?.products
+})
+
+const searchProduct = () => {
+  refetch({
+    search: search.value ? `%${search.value}%` : "%%",
+  });
+};
 // watchEffect(()=>{
 //   product.category ? result.value?.products.filter((p)=>p.category.name == product.category) : result.value?.products
 // })
@@ -160,7 +185,6 @@ const next_page = () => {
 //     limit: limit.value,
 //   })
 // });
-
 
 // watchEffect(()=>{
 //   products.value.filter((p)=>p.category.name == product.category)

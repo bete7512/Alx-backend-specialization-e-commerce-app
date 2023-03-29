@@ -19,18 +19,18 @@
   const chart = ref(null);
   
   onMounted(() => {
-    const labels = ["January", "February", "March", "April", "May", "June","July","Augest","September","October","December","November"];
+    const labels = ["January", "February", "March", "April", "May", "June"];
     const data = {
       labels: labels,
       datasets: [
           {
-          label: "Service Requests",
+          label: "Products",
           backgroundColor: "hsl(217, 57%, 51%)",
           borderColor: "hsl(217, 57%, 51%)",
           data: [0,10,16,15,2,3],
         },
         {
-          label: "Technicians",
+          label: "Orders",
           backgroundColor: "hsl(45, 100%, 50%)",
           borderColor: "hsl(45, 100%, 50%)",
           data: [0, 5, 5,27],
