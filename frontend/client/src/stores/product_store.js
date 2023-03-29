@@ -50,13 +50,20 @@ export const ProductStore = defineStore("products", {
       }
       try {
         const response = await apolloclient.mutate({
-          mutation: ADD_ORDER,
+          mutation: gql`
+          mutation MyMutation($product_id: String = "8b2cc37a-9a17-4995-98ec-f84a4983c6fb") {
+            add_order(inputs: {product_id: $product_id}) {
+              check_out
+            }
+          }          
+          `,
           variables: {
-            id: id,
+            product_id: id,
           },
         });
-        location.replace(response.data.insert_orders.payment_url);
-        return response.data.insert_orders.payment_url;
+        console.log(response);
+        location.replace(response.data.add_order.check_out);
+        return response.data.add_order.check_out;
       } catch (err) {
         console.log(err);
         return err.message;
