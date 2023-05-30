@@ -84,7 +84,7 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        location.reload();
+        
 
         return response;
       } catch (error) {
@@ -111,7 +111,7 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        location.reload();
+        
 
         return response;
       } catch (error) {
@@ -132,8 +132,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        location.reload();
-
         return response;
       } catch (error) {
         console.log(error);
@@ -159,7 +157,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        location.reload();
 
         return response;
       } catch (error) {
@@ -186,7 +183,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        location.reload();
 
         return response;
       } catch (error) {
@@ -222,7 +218,6 @@ export const ProductStore = defineStore("products", {
             comment: comment,
           },
         });
-        location.reload();
         console.log(response.data);
       } catch (error) {
         console.log(error);
@@ -248,7 +243,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response.data);
-        location.reload();
         return response.data;
       } catch (error) {
         console.log(error);
@@ -270,7 +264,7 @@ export const ProductStore = defineStore("products", {
             product_id: product_id,
           },
         });
-        location.reload();
+        
         console.log(response.data);
         return response.data;
       } catch (error) {

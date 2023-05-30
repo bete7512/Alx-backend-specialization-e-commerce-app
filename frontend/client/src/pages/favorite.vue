@@ -1,106 +1,236 @@
 <template>
-    <div v-if="error">{{ error }}</div>
-    <div v-if="loading">{{ loading }}</div>
-    <div v-else class="lg:flex lg:flex-wrap block justify-center space-x-2">
-      <div
-        class="pt-5 px-4 flex justify-center"
-        v-for="product in products"
+  <div v-if="error">{{ error }}</div>
+  <div v-if="loading">
+    <div class="flex justify-center h-screen items-center">
+      <div class="w-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="96"
+          height="96"
+          viewBox="0 0 24 24"
+        >
+          <g>
+            <circle cx="12" cy="3" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate0"
+                attributeName="r"
+                begin="0;svgSpinners12DotsScaleRotate2.end-0.5s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="16.5" cy="4.21" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate1"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate0.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="7.5" cy="4.21" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate2"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate4.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="19.79" cy="7.5" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate3"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate1.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="4.21" cy="7.5" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate4"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate6.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="21" cy="12" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate5"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate3.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="3" cy="12" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate6"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate8.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="19.79" cy="16.5" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate7"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate5.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="4.21" cy="16.5" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate8"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotatea.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="16.5" cy="19.79" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotate9"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate7.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="7.5" cy="19.79" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotatea"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotateb.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <circle cx="12" cy="21" r="1" fill="currentColor">
+              <animate
+                id="svgSpinners12DotsScaleRotateb"
+                attributeName="r"
+                begin="svgSpinners12DotsScaleRotate9.begin+0.1s"
+                calcMode="spline"
+                dur="0.6s"
+                keySplines=".27,.42,.37,.99;.53,0,.61,.73"
+                values="1;2;1"
+              />
+            </circle>
+            <animateTransform
+              attributeName="transform"
+              dur="6s"
+              repeatCount="indefinite"
+              type="rotate"
+              values="360 12 12;0 12 12"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    v-else
+    class="mt-16 container grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 justify-center space-x-2"
+  >
+    <div class="pt-5 px-4 flex justify-center" v-for="product in products">
+      <Product :product="product.product" v-on:detail="handle_detail"></Product>
+    </div>
+  </div>
+  <div class="flex justify-end mr-2 mt-4 pb-5">
+    <div class="inline-flex space-x-1">
+      <button
+        @click="prev_page()"
+        class="text-gray-700 font-bold py-2 px-4 rounded-l"
       >
-        <Product :product="product.product"  v-on:detail="handle_detail"></Product>
-      </div>
+        <font-awesome-icon :icon="['fas', 'arrow-left']" />
+      </button>
+
+      <button
+        @click="next_page()"
+        class="text-gray-700 font-bold py-2 px-4 rounded-r"
+      >
+        <font-awesome-icon :icon="['fas', 'arrow-right']" />
+      </button>
     </div>
-    <div class="flex justify-end mr-2 mt-1 pb-5">
-      <div class="inline-flex space-x-1">
-        <button
-          @click="prev_page()"
-          class="bg-[#EF4104] hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-l"
-        >
-          Prev
-        </button>
-        <button
-          class="bg-[#EF4104] hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-l"
-        >
-          1
-        </button>
-        <button
-          class="bg-[#EF4104] hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-l"
-        >
-          2
-        </button>
-        <button
-          @click="next_page()"
-          class="bg-[#EF4104] hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-r"
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  <product_detail v-if="is_product_detail" :id="product_id" v-on:close="is_product_detail=false"></product_detail>
-  
-  </template>
-  
-  <script setup>
-  import { defineProps, reactive, ref, onMounted, watchEffect,computed } from "vue";
-  import { useQuery } from "@vue/apollo-composable";
-  import Product from "../components/cards/Product.vue";
-  import { FAVORITE_QUERY } from "../constants/query";
-  import { ProductStore } from "../stores/product_store";
-  import product_detail from "../components/cards/product_detail.vue";
-  const offset = ref(0);
-  const limit = ref(5);
-  const { error, loading, result, refetch } = useQuery(FAVORITE_QUERY,
-  {
-      offset: offset.value,
-      limit: limit.value,
-    }
-  );
-  const products = computed(() => result.value?.favorite ?? []);
-  const product = ProductStore();
-  // onMounted(async ()=>{
-  //   await product.getProducts()
-  // })
-  const product_id = ref('')
-  const is_product_detail = ref(false)
-  const handle_detail = (id) => {
-    console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhh",id);
-    product_id.value = id;
-    is_product_detail.value = true;
-  }
-  const prev_page = () => {
-    if (offset.value <= 0) return;
-    offset.value -= limit.value;
-    refetch({
-      offset: offset.value,
-      limit: limit.value,
-    });
-  };
-  const next_page = () => {
-    if (offset.value >= 100) return;
-    offset.value += limit.value;
-    refetch({
-      offset: offset.value,
-      limit: limit.value,
-    });
-  };
-  
-  // watchEffect(()=>{
-  //   product.category ? result.value?.products.filter((p)=>p.category.name == product.category) : result.value?.products
-  // })
-  
-  // watchEffect(() => {
-  //   product.search ? refetch({
-  //     search: product.search ? `%${product.search}%` : "%%",
-  //   }) : refetch({
-  //     offset: offset.value,
-  //     limit: limit.value,
-  //   })
-  // });
-  
-  
-  // watchEffect(()=>{
-  //   products.value.filter((p)=>p.category.name == product.category)
-  // })
-  </script>
-  
-  <style></style>
-  
+  </div>
+  <product_detail
+    v-if="is_product_detail"
+    :id="product_id"
+    v-on:close="is_product_detail = false"
+  ></product_detail>
+</template>
+
+<script setup>
+import {
+  defineProps,
+  reactive,
+  ref,
+  onMounted,
+  watchEffect,
+  computed,
+} from "vue";
+import { useQuery } from "@vue/apollo-composable";
+import Product from "../components/cards/Product.vue";
+import { FAVORITE_QUERY } from "../constants/query";
+import { ProductStore } from "../stores/product_store";
+import product_detail from "../components/cards/product_detail.vue";
+const offset = ref(0);
+const limit = ref(5);
+const { error, loading, result, refetch } = useQuery(FAVORITE_QUERY, {
+  offset: offset.value,
+  limit: limit.value,
+});
+const products = computed(() => result.value?.favorite ?? []);
+const product = ProductStore();
+
+const product_id = ref("");
+const is_product_detail = ref(false);
+const handle_detail = (id) => {
+  product_id.value = id;
+  is_product_detail.value = true;
+};
+const prev_page = () => {
+  if (offset.value <= 0) return;
+  offset.value -= limit.value;
+  refetch({
+    offset: offset.value,
+    limit: limit.value,
+  });
+};
+const next_page = () => {
+  if (offset.value >= 100) return;
+  offset.value += limit.value;
+  refetch({
+    offset: offset.value,
+    limit: limit.value,
+  });
+};
+</script>
+
+<style></style>

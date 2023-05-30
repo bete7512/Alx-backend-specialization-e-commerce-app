@@ -114,7 +114,7 @@
         <span class="mx-4">Orders</span>
       </router-link>
 
-      <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
+      <!-- <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
         :class="[$route.name === 'chat' ? activeClass : inactiveClass]" to="/chat">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
           <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
@@ -124,7 +124,7 @@
         </svg>
 
         <span class="mx-4">Messages</span>
-      </router-link>
+      </router-link> -->
 
       <!-- <router-link class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
         :class="[$route.name === 'home' ? activeClass : inactiveClass]" to="/">

@@ -2,7 +2,7 @@
     <div class="overflow-x-scroll">
         <div class="flex justify-between">
             <div></div>
-            <button  @click="modal = true" class="text-green-900 p-4 mb-2 rounded-lg bg-orange-400">add new product</button>
+            <button  @click="modal = true" class="text-green-900 p-4 mb-2 capitalize rounded-lg bg-orange-400">add new product</button>
         </div>
         <table class="w-full pt-2 text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -23,8 +23,8 @@
                     class=" bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                     <td class="py-3 px-2">{{ pro.product_name }}</td>
                     <td class="py-3 px-2">0</td>
-                    <td class="py-3 px-2">0</td>
-                    <td class="py-3 px-2">{{ pro.created_at }}</td>
+                    <td class="py-3 px-2">{{ pro.product_reviews_aggregate.aggregate.count }}</td>
+                    <td class="py-3 px-2">{{ pro.created_at.split('T')[0] }}</td>
                     <!-- <td class="py-3 px-2">patient.phone</td> -->
                     <!-- <td class="py-3 px-2">patient.address</td> -->
                     <td class="py-3 px-2">

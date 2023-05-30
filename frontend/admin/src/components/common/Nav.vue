@@ -17,7 +17,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="relative mx-4 lg:mx-0 bg-slate-400">
+                <!-- <div class="relative mx-4 lg:mx-0 bg-slate-400">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                         <svg class="w-5 h-5 text-gray-500" viewBox="0 0 24 24" fill="none">
                             <path
@@ -29,7 +29,7 @@
                     <input
                         class="w-32 bg-slate-200 pl-10 h-10 pr-4 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                         type="text" placeholder="Search" />
-                </div>
+                </div> -->
                 <div class="flex items-center space-x-3 ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" class="bi bi-bell"
                         viewBox="0 0 16 16">

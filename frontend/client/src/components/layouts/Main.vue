@@ -1,10 +1,10 @@
 <template>
     <div class=" flex justify-center items-center">
-        <div class="container">
+        <div class="">
            <Nav class="lg:block hidden"></Nav>
            <Mobile class="block sm:hidden"></Mobile>
-           <div class="bg-[#dae0ff]">
-    
+           <div class="">
+
                <slot></slot>
            </div>
         </div>

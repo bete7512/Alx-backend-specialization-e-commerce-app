@@ -1,7 +1,7 @@
 <template>
-    <div class="lg:hidden flex justify-between items-center px-10 bg-[#6DB0B0] py-5">
+    <div class="lg:hidden flex justify-between items-center px-10  py-5">
         <div class="text-lg font-bold">
-            BS
+            <router-link to="/" class="text-4xl font-bold ">Gulit</router-link>
         </div>
         <button @click="()=>isNav=true">
             <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-list"

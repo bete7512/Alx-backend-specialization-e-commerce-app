@@ -13,18 +13,24 @@ const LOGIN = gql`
 `;
 
 const PRODUCT_QUERY = gql`
-  query MyQuery {
-    products {
-      product_name
-      updated_at
-      product_image
-      product_description
-      price
-      id
-      created_at
-      about_product
+query MyQuery {
+  products {
+    product_name
+    updated_at
+    product_image
+    product_description
+    price
+    id
+    created_at
+    about_product
+    product_reviews_aggregate {
+      aggregate {
+        count(distinct: false)
+      }
     }
   }
+}
+
 `;
 
 const CATEGORY = gql`

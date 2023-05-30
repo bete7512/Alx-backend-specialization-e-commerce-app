@@ -1,6 +1,6 @@
 <template>
     <div class="overlay top-0 lg:hidden w-1/2 z-50   right-0 flex items-center justify-center ">
-        <div class="space-y-80 h-screen w-full  bg-cyan-600 rounded-md">
+        <div class="space-y-80 h-screen w-full  bg-slate-400 shadow-lg bg-transparent rounded-md">
             <div class=" w-full  border-zinc-900 h-auto space-y-4 px-2">
                 <div class="w-full flex justify-end px-2 pt-4">
                     <button @click="emit('cancel')">
