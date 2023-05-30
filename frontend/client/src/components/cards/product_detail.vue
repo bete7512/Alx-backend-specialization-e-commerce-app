@@ -475,7 +475,7 @@ const emits = defineEmits(["refetch","close"]);
 const product_id = ref(props.id);
 console.log("am product ID", product_id.value);
 // const emits = defineEmits(["close"]);
-const { error, loading, result } = useQuery(
+const { error, loading, result,refetch } = useQuery(
   gql`
     query MyQuery($id: uuid = "") {
       products_by_pk(id: $id) {
@@ -545,7 +545,8 @@ const add_comment = async () => {
   }
   let res = await product.add_comment(props.id, rate.value, comment.value);
   console.log(res);
-  emits("refetch");
+  emits("refetch") 
+  refetch();
 };
 
 const add_cart = async (id) => {
@@ -557,7 +558,8 @@ const add_cart = async (id) => {
 
   let res = await product.add_cart(props.id, 1);
   console.log(res);
-  emits("refetch");     
+  emits("refetch") 
+  refetch();     
 };
 
 const remove_cart = async (id) => {
@@ -569,7 +571,8 @@ const remove_cart = async (id) => {
 
   let res = await product.remove_cart(props.id);
   console.log(res);
-  emits("refetch"); 
+  emits("refetch") 
+  refetch(); 
 };
 </script>
 <style></style>
