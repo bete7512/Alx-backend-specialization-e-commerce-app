@@ -1,14 +1,19 @@
 <template>
   <div
-    class="card hover:border hover:shadow-xl h-[450px] hover:border-sky-800 duration-100 mt-2 sm:w-3/4 hover:scale-100 md:w-3/4 lg:w-96 w-full sm:px-0 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+    class="card justify-between h-full p-3 hover:border hover:shadow-xl hover:border-sky-800 duration-100 mt-2 hover:scale-100 sm:px-0 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
   >
-    <div class="relative h-[50%]">
+    <div class="relative">
       <img
-        class="rounded-t-lg w-full h-[100%]"
+        class="rounded-t-lg w-full"
         :src="product.product_image.split(',')[0]"
       />
       <button
-        @click="managefavorite(product.id, product.is_favorite)"
+        @click="
+          async () => {
+            await managefavorite(product.id, product.is_favorite);
+            emits('refetch');
+          }
+        "
         class="absolute top-5 right-0 pr-3 w-12 h-12 rounded-full hover:shadow-transparent hover:bg-slate-800 bg-white"
       >
         <div class="flex justify-center pt-1 pl-3">
@@ -46,13 +51,14 @@
         </div>
       </button>
     </div>
+    <div class="flex flex-grow"></div>
     <div class="p-5 h-[50%]">
       <button @click="send_to_parent(product.id)">
         <div>
           <h5
             class="mb-2 hover:underline text-lg font-bold tracking-tight text-gray-900 dark:text-white"
           >
-            <strong>{{ product.product_name }}</strong>
+            <strong class="text-xl">{{ product.product_name }}</strong>
           </h5>
         </div>
       </button>
@@ -66,7 +72,14 @@
         </StarRating>
         <div class="flex space-x-1 items-center">
           <!-- -->
-          <button @click="managelikes(product.id, product.is_liked)">
+          <button
+            @click="
+              async () => {
+                await managelikes(product.id, product.is_liked);
+                emits('refetch');
+              }
+            "
+          >
             <svg
               v-if="product.is_liked"
               xmlns="http://www.w3.org/2000/svg"
@@ -101,18 +114,24 @@
       <div>
         {{ formattedDate }}
       </div>
-      <!-- <div>{{product.id}}</div> -->
-      <button
-        v-if="!product.is_ordered"
-        class="bg-[#EF4104] text-center hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-l"
-      >
-        Order
-      </button>
-      <button v-else
-        class="bg-[#1c189a] text-center hover:bg-[#a02f05] text-white font-bold py-2 px-4 rounded-l"
-      >
-        ordered waiting for delivery
-      </button>
+      <!-- <div class="shadow-black bg-white p-8 rounded-lg"> -->
+
+      <!-- <div class=" ml-2 "> -->
+        <button
+          v-if="!product?.is_ordered"
+          @click="add_order(product.id)"
+          class="bg-blue-700 bottom-0 text-center rounded-lg hover:bg-[#a02f05] text-white font-bold py-2 px-4"
+        >
+          Order
+        </button>
+        <button
+          v-else
+          class="bg-green-500 bottom-0 capitalize rounded-lg text-center text-white font-bold py-2 px-4"
+        >
+          ordered
+        </button>
+        <!-- </div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
@@ -129,38 +148,35 @@ const props = defineProps({
     required: true,
   },
 });
-const emits = defineEmits(["detail"]);
+
+console.log(props.product);
+const emits = defineEmits(["detail", "refetch"]);
 const date = new Date(props.product.created_at);
 const formattedDate = date.toLocaleString();
 const products = ProductStore();
-const managefavorite = (id, isfavorite) => {
+const managefavorite = async (id, isfavorite) => {
   if (!localStorage.getItem("Apollotoken")) {
     router.push("/login");
     return;
   }
   if (!isfavorite) {
     products.add_to_favorite(id);
-    // location.reload()
   } else {
     products.remove_from_favorite(id);
-    // location.reload()
   }
 };
-const managelikes = (id, isliked) => {
+const managelikes = async (id, isliked) => {
   if (!localStorage.getItem("Apollotoken")) {
     router.push("/login");
     return;
   }
   if (isliked) {
     products.remove_from_like(id);
-    // location.reload()
   } else {
     products.add_to_like(id);
-    // location.reload()
   }
 };
 const send_to_parent = (id) => {
-  console.log("am childddddddddddddddddddddddddddddddd", id);
   emits("detail", id);
 };
 </script>

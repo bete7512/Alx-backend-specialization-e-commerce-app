@@ -162,27 +162,10 @@
       class="pt-5 relative px-4 flex justify-center"
       v-for="product in products"
     >
-      <div class="shadow-black bg-white p-8 rounded-lg">
-        <Product
+    <Product
           :product="product.product"
           v-on:detail="handle_detail"
         ></Product>
-        <!-- <div class="-mt-12 ml-2 absolute">
-          <button
-            v-if="!product.product.is_ordered"
-            @click="add_order(product.product.id)"
-            class="bg-blue-700 text-center rounded-lg hover:bg-[#a02f05] text-white font-bold py-2 px-4"
-          >
-            Order
-          </button>
-          <button
-            v-else
-            class="bg-green-500 capitalize rounded-lg text-center text-white font-bold py-2 px-4"
-          >
-            ordered
-          </button>
-        </div> -->
-      </div>
     </div>
   </div>
   <div class="flex justify-end mr-2 mt-4 pb-5">
@@ -219,7 +202,7 @@ import {
   computed,
 } from "vue";
 import { useQuery } from "@vue/apollo-composable";
-import Product from "../components/cards/Product.vue";
+import Product from "../components/cards/cart_product.vue";
 import { CART_QUERY } from "../constants/query";
 import { ProductStore } from "../stores/product_store";
 import product_detail from '../components/cards/product_detail.vue'

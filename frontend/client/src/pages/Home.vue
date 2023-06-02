@@ -309,7 +309,7 @@ const product = ProductStore();
 const product_id = ref("");
 const is_product_detail = ref(false);
 const handle_detail = (id) => {
-  console.log("ghhhhhhhhhhhhhhhhhhhhhhhhhh", id);
+  console.log("xx", id);
   product_id.value = id;
   is_product_detail.value = true;
 };
