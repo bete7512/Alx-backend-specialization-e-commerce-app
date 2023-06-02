@@ -275,7 +275,7 @@
                 </div>
                 <button class="text-orange-600 hover:underline">
                   {{
-                    (comment.customer.first_name, comment.customer.first_name)
+                    (comment.customer?.first_name, comment.customer?.last_name)
                   }}
                 </button>
               </div>
