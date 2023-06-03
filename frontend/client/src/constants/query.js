@@ -10,23 +10,12 @@ export const LOGIN = gql`
 `;
 
 export const SIGNUP = gql`
-  mutation MyMutation(
-    $fname: String = ""
-    $lname: String = ""
-    $password: String = ""
-    $phone: String = ""
-  ) {
-    signup(
-      input: {
-        fname: $fname
-        lname: $lname
-        password: $password
-        phone: $phone
-      }
-    ) {
-      success
-    }
+mutation MyMutation($fname: String = "", $lname: String = "", $password: String = "", $phone: String = "", $age: Int = 10, $gender: String = "") {
+  signup(input: {fname: $fname, lname: $lname, password: $password, phone: $phone, age: $age, gender: $gender}) {
+    success
   }
+}
+
 `;
 
 

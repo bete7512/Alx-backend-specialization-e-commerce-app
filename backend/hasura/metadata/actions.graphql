@@ -1,4 +1,10 @@
 type Mutation {
+  add_order(
+    inputs: order_input!
+  ): order_output
+}
+
+type Mutation {
   fileupload(
     name: String!
     type: String!
@@ -28,6 +34,11 @@ input input_reg {
   lname: String!
   phone: String!
   password: String!
+  types: String
+}
+
+input order_input {
+  product_id: String!
 }
 
 type outputs {
@@ -41,5 +52,9 @@ type output_reg {
 
 type fileoutput {
   file_path: String!
+}
+
+type order_output {
+  check_out: String!
 }
 

@@ -19,9 +19,9 @@ export const UserStore = defineStore("user", {
                     }
                 })
                 console.log(response);
-                localStorage.setItem('Apollotoken', response.data.login.accestoken)
-                // console.log(localStorage.getItem('Apollotoken'));
-                if(window.localStorage.getItem('Apollotoken')){
+                localStorage.setItem('AdminToken', response.data.login.accestoken)
+                // console.log(localStorage.getItem('AdminToken'));
+                if(window.localStorage.getItem('AdminToken')){
                     router.push('/')
                 }
                 return response.data.login.accestoken

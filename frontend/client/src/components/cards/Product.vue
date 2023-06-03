@@ -133,7 +133,7 @@ const date = new Date(props.product.created_at);
 const formattedDate = date.toLocaleString();
 const products = ProductStore();
 const managefavorite = async (id, isfavorite) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     router.push("/login");
     return;
   }
@@ -144,7 +144,7 @@ const managefavorite = async (id, isfavorite) => {
   }
 };
 const managelikes =async  (id, isliked) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     router.push("/login");
     return;
   }

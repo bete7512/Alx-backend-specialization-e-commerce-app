@@ -52,8 +52,12 @@ export const ProductStore = defineStore("product", {
           product_image: this.image_url.join(),
           price: this.price,
         });
-        await this.add_image();
-        const response = apolloclient.mutate({
+        try {
+          await this.add_image();
+        } catch (error) {
+          return error;
+        }
+        const response =await apolloclient.mutate({
           mutation: INSERT_PRODUCT,
           variables: {
             product_name: this.product_name,
@@ -66,7 +70,7 @@ export const ProductStore = defineStore("product", {
         console.log(response);
       } catch (err) {
         console.log(err);
-        return err.message;
+        return err;
       }
     },
     async category() {
@@ -115,5 +119,7 @@ const fileupload = async (object) => {
     return response.data.fileupload.file_path;
   } catch (error) {
     console.log(error);
+    alert(error); 
+    return error;
   }
 };

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="error">error</div>
+    <div v-if="error">{{ error }}</div>
     <div v-else-if="loading">loading</div>
     <div v-else class="flex flex-wrap   items-center sm:px-2 px-5 justify-center gap-5 ">
         <div
@@ -30,7 +30,7 @@
                 <p class="text-sm font-semibold">Total orders</p>
             </div>
         </div>
-        <div
+        <!-- <div
             class="sm:w-64 w-full sm:px-0 px-5 h-28 flex justify-center  items-center space-x-2 bg-white mt-4 rounded-lg">
             <div class="flex justify-center items-center h-20 w-20 rounded-full bg-blue-900">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-cart"
@@ -43,7 +43,7 @@
                 <p class="text-2xl font-semibold">{{ result.customers_aggregate.aggregate.count }}</p>
                 <p class="text-sm font-semibold">Total Reviews</p>
             </div>
-        </div>
+        </div> -->
         <!-- <div
             class="sm:w-64 w-full sm:px-0 px-5 h-28 flex justify-center  items-center space-x-2 bg-white mt-4 rounded-lg">
             <div class="flex justify-center items-center h-20 w-20 rounded-full bg-blue-900">
@@ -69,11 +69,6 @@ import chart from './cards/chart.vue'
 const { error, loading, result } = useQuery(gql`
 query MyQuery {
   order_aggregate {
-    aggregate {
-      count(distinct: false)
-    }
-  }
-  customers_aggregate {
     aggregate {
       count(distinct: false)
     }

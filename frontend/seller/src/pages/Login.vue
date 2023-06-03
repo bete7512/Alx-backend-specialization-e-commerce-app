@@ -75,8 +75,10 @@ const onSubmit = async () => {
     console.log('submit')
     loginprocess.value = true
     try {
-        loginreturn.value = await user.login(email.value, password.value)
+        let test = await user.login(email.value, password.value)
+        console.log(test);
         loginprocess.value = false
+        router.push('/').catch(err => { console.log(); })  
     }
     catch (error) {
         loginprocess.value = false

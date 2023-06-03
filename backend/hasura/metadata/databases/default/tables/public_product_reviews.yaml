@@ -1,6 +1,13 @@
 table:
   name: product_reviews
   schema: public
+object_relationships:
+  - name: customer
+    using:
+      foreign_key_constraint_on: customer_id
+  - name: product
+    using:
+      foreign_key_constraint_on: product_id
 insert_permissions:
   - role: admins
     permission:
@@ -38,6 +45,7 @@ select_permissions:
         - id
         - product_id
       filter: {}
+      allow_aggregations: true
   - role: customers
     permission:
       columns:
@@ -49,6 +57,7 @@ select_permissions:
         - id
         - product_id
       filter: {}
+      allow_aggregations: true
   - role: public
     permission:
       columns:

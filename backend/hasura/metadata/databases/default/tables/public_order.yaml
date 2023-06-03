@@ -1,6 +1,13 @@
 table:
   name: order
   schema: public
+object_relationships:
+  - name: customer
+    using:
+      foreign_key_constraint_on: customer_id
+  - name: product
+    using:
+      foreign_key_constraint_on: product_id
 insert_permissions:
   - role: admins
     permission:
@@ -28,25 +35,29 @@ select_permissions:
   - role: admins
     permission:
       columns:
-        - status
         - created_at
-        - updated_at
         - customer_id
         - id
         - product_id
+        - reference_id
+        - status
+        - updated_at
       filter: {}
+      allow_aggregations: true
   - role: customers
     permission:
       columns:
-        - status
         - created_at
-        - updated_at
         - customer_id
         - id
         - product_id
+        - reference_id
+        - status
+        - updated_at
       filter:
         customer_id:
           _eq: X-Hasura-User-Id
+      allow_aggregations: true
 update_permissions:
   - role: admins
     permission:
@@ -77,3 +88,14 @@ delete_permissions:
   - role: customers
     permission:
       filter: {}
+event_triggers:
+  - name: payment
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://localhost:3000/payment

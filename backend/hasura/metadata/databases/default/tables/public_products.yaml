@@ -1,20 +1,174 @@
 table:
   name: products
   schema: public
+object_relationships:
+  - name: category
+    using:
+      foreign_key_constraint_on: category_id
+array_relationships:
+  - name: carts
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: cart
+          schema: public
+  - name: favorites
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: favoritexdtxtdxgdhv
+          schema: public
+  - name: favoritesByProductId
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: favorite
+          schema: public
+  - name: likes
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: likes
+          schema: public
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: order
+          schema: public
+  - name: product_reviews
+    using:
+      foreign_key_constraint_on:
+        column: product_id
+        table:
+          name: product_reviews
+          schema: public
+computed_fields:
+  - name: average_rate
+    definition:
+      function:
+        name: average_rates_real
+        schema: public
+  - name: average_rates
+    definition:
+      function:
+        name: average_rating
+        schema: public
+  - name: is_carted
+    definition:
+      function:
+        name: user_carts
+        schema: public
+      session_argument: hasura_session
+  - name: is_favorite
+    definition:
+      function:
+        name: user_favorite
+        schema: public
+      session_argument: hasura_session
+  - name: is_liked
+    definition:
+      function:
+        name: user_likes
+        schema: public
+      session_argument: hasura_session
+  - name: is_ordered
+    definition:
+      function:
+        name: user_order
+        schema: public
+      session_argument: hasura_session
+  - name: number_of_likes
+    definition:
+      function:
+        name: product_like_counter
+        schema: public
 insert_permissions:
   - role: admins
     permission:
       check: {}
       columns:
-        - price
         - about_product
+        - category_id
+        - created_at
+        - id
+        - price
         - product_description
         - product_image
         - product_name
-        - created_at
         - updated_at
-        - id
 select_permissions:
+  - role: admins
+    permission:
+      columns:
+        - about_product
+        - category_id
+        - created_at
+        - id
+        - price
+        - product_description
+        - product_image
+        - product_name
+        - updated_at
+      computed_fields:
+        - average_rate
+        - average_rates
+        - is_carted
+        - is_favorite
+        - is_liked
+        - is_ordered
+        - number_of_likes
+      filter: {}
+      allow_aggregations: true
+  - role: customers
+    permission:
+      columns:
+        - about_product
+        - category_id
+        - created_at
+        - id
+        - price
+        - product_description
+        - product_image
+        - product_name
+        - updated_at
+      computed_fields:
+        - average_rate
+        - average_rates
+        - is_carted
+        - is_favorite
+        - is_liked
+        - is_ordered
+        - number_of_likes
+      filter: {}
+  - role: public
+    permission:
+      columns:
+        - about_product
+        - category_id
+        - created_at
+        - id
+        - price
+        - product_description
+        - product_image
+        - product_name
+        - updated_at
+      computed_fields:
+        - average_rate
+        - average_rates
+        - is_carted
+        - is_favorite
+        - is_liked
+        - is_ordered
+        - number_of_likes
+      filter: {}
+      allow_aggregations: true
+update_permissions:
   - role: admins
     permission:
       columns:
@@ -27,28 +181,8 @@ select_permissions:
         - updated_at
         - id
       filter: {}
-      allow_aggregations: true
-  - role: customers
+      check: {}
+delete_permissions:
+  - role: admins
     permission:
-      columns:
-        - price
-        - about_product
-        - product_description
-        - product_image
-        - product_name
-        - created_at
-        - updated_at
-        - id
-      filter: {}
-  - role: public
-    permission:
-      columns:
-        - price
-        - about_product
-        - product_description
-        - product_image
-        - product_name
-        - created_at
-        - updated_at
-        - id
       filter: {}

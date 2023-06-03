@@ -44,7 +44,7 @@ export const ProductStore = defineStore("products", {
     },
 
     async add_to_cart(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -66,7 +66,7 @@ export const ProductStore = defineStore("products", {
       await this.getProducts();
     },
     async add_to_favorite(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -93,7 +93,7 @@ export const ProductStore = defineStore("products", {
       }
     },
     async remove_from_favorite(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -120,7 +120,7 @@ export const ProductStore = defineStore("products", {
       }
     },
     async remove_from_cart(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -139,7 +139,7 @@ export const ProductStore = defineStore("products", {
       }
     },
     async add_to_like(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -165,7 +165,7 @@ export const ProductStore = defineStore("products", {
       }
     },
     async remove_from_like(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         router.push("/login");
         return;
       }
@@ -272,11 +272,12 @@ export const ProductStore = defineStore("products", {
       }
     },
     async add_order(id) {
-      if (!localStorage.getItem("Apollotoken")) {
+      if (!localStorage.getItem("ClientToken")) {
         console.log("not logged in");
         router.push("/login");
         return;
       }
+      console.log("well initiated", id );
       try {
         const response = await apolloclient.mutate({
           mutation: gql`

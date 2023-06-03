@@ -1,0 +1,2 @@
+hasura metadata export --admin-secret "4XOey5f43TUW5FcCHlX9lZWsOCfmeMUCi6rKOze1940Ija9QQRVh4fdSTXitfunr"
+hasura migrate create "init" --from-server  --admin-secret "4XOey5f43TUW5FcCHlX9lZWsOCfmeMUCi6rKOze1940Ija9QQRVh4fdSTXitfunr"

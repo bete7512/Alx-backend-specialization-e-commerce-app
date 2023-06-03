@@ -1,5 +1,5 @@
 table:
-  name: cart
+  name: favoritexdtxtdxgdhv
   schema: public
 object_relationships:
   - name: customer
@@ -9,25 +9,13 @@ object_relationships:
     using:
       foreign_key_constraint_on: product_id
 insert_permissions:
-  - role: admins
-    permission:
-      check: {}
-      columns:
-        - quantity
-        - created_at
-        - updated_at
-        - customer_id
-        - id
-        - product_id
   - role: customers
     permission:
       check: {}
       set:
         customer_id: x-hasura-User-Id
       columns:
-        - quantity
         - created_at
-        - updated_at
         - customer_id
         - id
         - product_id
@@ -35,45 +23,22 @@ select_permissions:
   - role: admins
     permission:
       columns:
-        - quantity
         - created_at
-        - updated_at
         - customer_id
-        - id
         - product_id
       filter: {}
   - role: customers
     permission:
       columns:
-        - quantity
         - created_at
-        - updated_at
         - customer_id
         - id
         - product_id
       filter:
         customer_id:
           _eq: X-Hasura-User-Id
-update_permissions:
-  - role: admins
-    permission:
-      columns:
-        - quantity
-        - created_at
-        - updated_at
-        - customer_id
-        - id
-        - product_id
-      filter: {}
-      check: {}
+      allow_aggregations: true
 delete_permissions:
-  - role: admins
-    permission:
-      filter:
-        customer_id:
-          _eq: X-Hasura-User-Id
   - role: customers
     permission:
-      filter:
-        customer_id:
-          _eq: X-Hasura-User-Id
+      filter: {}

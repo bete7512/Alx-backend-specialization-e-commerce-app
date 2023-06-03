@@ -1,38 +1,44 @@
 table:
-  name: favorite
+  name: likes
   schema: public
 object_relationships:
-  - name: customer
-    using:
-      foreign_key_constraint_on: customer_id
   - name: product
     using:
       foreign_key_constraint_on: product_id
+  - name: user
+    using:
+      foreign_key_constraint_on: user_id
 insert_permissions:
   - role: customers
     permission:
       check: {}
       set:
-        customer_id: x-hasura-User-Id
+        user_id: x-hasura-User-Id
       columns:
-        - created_at
-        - customer_id
         - id
         - product_id
+        - user_id
 select_permissions:
   - role: customers
     permission:
       columns:
-        - created_at
-        - customer_id
         - id
         - product_id
+        - user_id
       filter:
-        customer_id:
+        user_id:
           _eq: X-Hasura-User-Id
+      allow_aggregations: true
+  - role: sellers
+    permission:
+      columns:
+        - id
+        - product_id
+        - user_id
+      filter: {}
 delete_permissions:
   - role: customers
     permission:
       filter:
-        customer_id:
+        user_id:
           _eq: X-Hasura-User-Id

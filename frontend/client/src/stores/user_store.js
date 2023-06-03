@@ -8,10 +8,11 @@ provideApolloClient(apolloclient);
 export const UserStore = defineStore("user", {
     state: () => ({
         user:{},
-        userLoggedin:localStorage.getItem('Apollotoken') ? true : false,
+        userLoggedin:localStorage.getItem('ClientToken') ? true : false,
     }),
     actions: {
-        async signup(fname, lname, phone, password){
+        async signup(fname, lname, phone, password,gender,age){
+            console.log(fname, lname, phone, password,gender,age);
             try {
                 const response = await apolloclient.mutate({
                     mutation: SIGNUP,
@@ -19,7 +20,9 @@ export const UserStore = defineStore("user", {
                         fname: fname,
                         lname: lname,
                         phone: phone,
-                        password: password
+                        password: password,
+                        gender:gender,
+                        age:age
                     }
 
                 })
@@ -31,8 +34,8 @@ export const UserStore = defineStore("user", {
         },
         async login(phone,password) {
             try {
-                console.log(window.localStorage.getItem('Apollotoken'));
-                window.localStorage.removeItem('Apollotoken')
+                console.log(window.localStorage.getItem('ClientToken'));
+                window.localStorage.removeItem('ClientToken')
                 const response = await apolloclient.mutate({
                     mutation: LOGIN,
                     variables: {
@@ -40,9 +43,9 @@ export const UserStore = defineStore("user", {
                         password: password
                     }
                 })
-                localStorage.setItem('Apollotoken', response.data.login.accestoken)
+                localStorage.setItem('ClientToken', response.data.login.accestoken)
                 console.log("njhnjhhhhhhhhhhhhhhhhhhhhhhhjh",response.data);
-                if(window.localStorage.getItem('Apollotoken')){
+                if(window.localStorage.getItem('ClientToken')){
                     await this.user_profile(response.data.login.id)
                     router.push('/')
                 }

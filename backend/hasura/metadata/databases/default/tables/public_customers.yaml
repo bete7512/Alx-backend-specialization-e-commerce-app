@@ -1,6 +1,42 @@
 table:
   name: customers
   schema: public
+array_relationships:
+  - name: carts
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: cart
+          schema: public
+  - name: favorites
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: favoritexdtxtdxgdhv
+          schema: public
+  - name: favoritesByCustomerId
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: favorite
+          schema: public
+  - name: orders
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: order
+          schema: public
+  - name: product_reviews
+    using:
+      foreign_key_constraint_on:
+        column: customer_id
+        table:
+          name: product_reviews
+          schema: public
 insert_permissions:
   - role: admins
     permission:
@@ -29,6 +65,7 @@ select_permissions:
         - created_at
         - id
       filter: {}
+      allow_aggregations: true
   - role: customers
     permission:
       columns:
@@ -41,9 +78,20 @@ select_permissions:
         - phone
         - created_at
         - id
-      filter:
-        id:
-          _eq: X-Hasura-User-Id
+      filter: {}
+  - role: public
+    permission:
+      columns:
+        - address
+        - avator
+        - email
+        - first_name
+        - last_name
+        - password
+        - phone
+        - created_at
+        - id
+      filter: {}
 update_permissions:
   - role: admins
     permission:

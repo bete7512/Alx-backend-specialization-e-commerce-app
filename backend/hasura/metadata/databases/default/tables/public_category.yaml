@@ -1,6 +1,14 @@
 table:
   name: category
   schema: public
+array_relationships:
+  - name: products
+    using:
+      foreign_key_constraint_on:
+        column: category_id
+        table:
+          name: products
+          schema: public
 insert_permissions:
   - role: admins
     permission:

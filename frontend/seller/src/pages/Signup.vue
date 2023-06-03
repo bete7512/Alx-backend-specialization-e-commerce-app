@@ -31,21 +31,13 @@
                                 :class="{ 'is-invalid': errors.phone }" />
                             <div class="text-red-700">{{ errors.phone }}</div>
                         </div>
-                        <div class="space-y-3 sm:w-1/2 w-full">
-                            <label class="font-bold text-2xl">Age</label>
-                            <input v-model="age" type="number" class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
-                           
-                        </div>
-                        <div class="space-y-3 sm:w-1/2 w-full">
-                            <label class="font-bold text-2xl">Gender</label>
-                            <div class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
-
-                                <select name="" v-model="gender" class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300">
-                                    <option class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" value="Male">Male</option>
-                                    <option class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300" value="Male">Female</option>
-                                </select>
-                            </div>
-                        </div>
+                        <!-- <div class="space-y-3 sm:w-1/2 w-full">
+                            <label class="font-bold text-2xl">Username</label>
+                            <Field name="username" type="text" v-model="username" placeholder="enter username"
+                                class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
+                                :class="{ 'is-invalid': errors.username }" />
+                            <div class="text-red-700">{{ errors.username }}</div>
+                        </div> -->
                     </div>
                     <div class="sm:flex block space-x-4 w-full">
                         <div class="space-y-3 sm:w-1/2 w-full">
@@ -110,7 +102,7 @@ import { Form, Field } from 'vee-validate';
 import * as Yup from 'yup';
 import { ref, onMounted } from 'vue'
 import { defineEmits } from 'vue';
-import { UserStore } from '../stores/user_store';
+import { UserStore } from '../stores/UserStore';
 // import { counter } from '../stores/counter';
 // const count = counter()
 const username = ref('')
@@ -143,9 +135,6 @@ const schema = Yup.object().shape({
 });
 const user = UserStore()
 const returnmessage = ref('')
-const age = ref(18)
-const gender  =ref('Male')
-
 console.log(user);
 const processing = ref(false)
 // onMounted(() => {
@@ -162,15 +151,14 @@ const onSubmit = async () => {
     console.log("jknkkkkkkkkkkkkkkkkkkkkk");
     localStorage.removeItem('Apollotoken')
     try {
-       console.log(fname,lname,phone,password,gender,age)
         processing.value = true
         returnmessage.value = await user.signup(
             fname.value,
             lname.value,
             phone.value,
             password.value,
-            gender.value,
-            age.value
+            address.value,
+            username.value
         )
         processing.value = false
     }

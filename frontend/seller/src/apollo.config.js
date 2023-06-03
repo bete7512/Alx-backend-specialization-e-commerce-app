@@ -1,7 +1,7 @@
 import { ApolloClient,createHttpLink,InMemoryCache } from "@apollo/client/core";
 const getHeaders = () => {
     var headers = {};
-    const token = window.localStorage.getItem("Apollotoken");
+    const token = window.localStorage.getItem("SellerToken");
     // console.log("from apollo token"+token);
     if (token){
 

@@ -538,7 +538,7 @@ const add_comment = async () => {
     alert("comment is required");
     return;
   }
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     emits("close");
     router.push("/login");
     location.reload();
@@ -550,7 +550,7 @@ const add_comment = async () => {
 };
 
 const add_cart = async (id) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     emits("close");
     router.push("/login");
     // location.reload();
@@ -563,7 +563,7 @@ const add_cart = async (id) => {
 };
 
 const remove_cart = async (id) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     emits("close");
     router.push("/login");
     // location.reload();

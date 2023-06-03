@@ -122,7 +122,7 @@ const dropdownOpen = ref(false);
 const logout = () => {
   localStorage.removeItem("Apollotoken");
   user.userLoggedin = false;
-  router.push("/");
+  router.push("/login");
 };
 </script>
 <style></style>

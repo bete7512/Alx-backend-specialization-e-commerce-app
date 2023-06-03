@@ -28,6 +28,13 @@ const router = createRouter({
       name: "favorite",
       component: favorite,
       meta: { layout: "main" },
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem("ClientToken")) {
+          next();
+        } else {
+          next("/login");
+        }
+      }
     },
     {
       path: "/signup",
@@ -40,6 +47,13 @@ const router = createRouter({
       name: "cart",
       component: Cart,
       meta: { layout: "main" },
+      beforeEnter: (to, from, next) => {      
+        if (localStorage.getItem("ClientToken")) {
+          next();
+        } else {
+          next("/login");
+        }
+      }    
     },
 
   ],

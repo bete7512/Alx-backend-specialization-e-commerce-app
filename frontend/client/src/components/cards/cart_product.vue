@@ -119,7 +119,7 @@
       <!-- <div class=" ml-2 "> -->
         <button
           v-if="!product?.is_ordered"
-          @click="add_order(product.id)"
+          @click="products.add_order(product.id)"
           class="bg-blue-700 bottom-0 text-center rounded-lg hover:bg-[#a02f05] text-white font-bold py-2 px-4"
         >
           Order
@@ -155,7 +155,7 @@ const date = new Date(props.product.created_at);
 const formattedDate = date.toLocaleString();
 const products = ProductStore();
 const managefavorite = async (id, isfavorite) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     router.push("/login");
     return;
   }
@@ -166,7 +166,7 @@ const managefavorite = async (id, isfavorite) => {
   }
 };
 const managelikes = async (id, isliked) => {
-  if (!localStorage.getItem("Apollotoken")) {
+  if (!localStorage.getItem("ClientToken")) {
     router.push("/login");
     return;
   }

@@ -31,6 +31,7 @@ const handler = async (req, res) => {
           'x-hasura-allowed-roles': [
             'admins',
             'customers',
+            'sellers'
           ],
           'x-hasura-default-role': user.role.name,
           'x-hasura-user-id': `${user.id}`,

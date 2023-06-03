@@ -1,12 +1,21 @@
 actions:
+  - name: add_order
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/add_order'
+    permissions:
+      - role: customers
   - name: fileupload
     definition:
       kind: synchronous
-      handler: http://host.docker.internal:3000/file_upload
+      handler: '{{ACTION_BASE_URL}}/file_upload'
+    permissions:
+      - role: customers
+      - role: admins
   - name: login
     definition:
       kind: synchronous
-      handler: http://178.128.195.69/login
+      handler: '{{ACTION_BASE_URL}}/login'
     permissions:
       - role: public
       - role: customers
@@ -14,14 +23,20 @@ actions:
   - name: signup
     definition:
       kind: synchronous
-      handler: http://host.docker.internal:3000/signup
+      handler: '{{ACTION_BASE_URL}}/signup'
+    permissions:
+      - role: admins
+      - role: public
+      - role: customers
 custom_types:
   enums: []
   input_objects:
     - name: inputs
     - name: input_reg
+    - name: order_input
   objects:
     - name: outputs
     - name: output_reg
     - name: fileoutput
+    - name: order_output
   scalars: []

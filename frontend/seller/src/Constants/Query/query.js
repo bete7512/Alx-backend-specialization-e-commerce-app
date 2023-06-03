@@ -11,6 +11,14 @@ const LOGIN = gql`
     }
   }
 `;
+const SIGNUP = gql`
+mutation MyMutation($fname: String = "Viva", $lname: String = "Mini", $password: String = "123456", $phone: String = "0911446642599513333", $types: String = "sellers") {
+  signup(input: {fname: $fname, lname: $lname, phone: $phone, password: $password, types: $types}) {
+    success
+  }
+}
+
+`
 
 const PRODUCT_QUERY = gql`
 query MyQuery {
@@ -65,4 +73,4 @@ mutation MyMutation($type: String = "", $name: String = "", $base64str: String =
   }
 }
 `
-export { LOGIN, PRODUCT_QUERY, CATEGORY, INSERT_PRODUCT,FILE_UPLOAD };
+export { LOGIN, PRODUCT_QUERY, CATEGORY, INSERT_PRODUCT,FILE_UPLOAD,SIGNUP };
