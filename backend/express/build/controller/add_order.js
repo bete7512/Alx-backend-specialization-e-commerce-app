@@ -50,7 +50,7 @@ var handler = /*#__PURE__*/function () {
             last_name: last_name,
             tx_ref: (0, _uuid.v4)(),
             callback_url: 'https://webhook.site/',
-            return_url: 'http://localhost:5173/',
+            return_url: 'https://gulitbuyer.netlify.app/',
             // your callback URL
             customization: {
               title: 'I love e-commerce',
