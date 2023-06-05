@@ -6,6 +6,7 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _express = _interopRequireDefault(require("express"));
 var _dotenv = _interopRequireDefault(require("dotenv"));
 var _bodyParser = _interopRequireDefault(require("body-parser"));
+var _cors = _interopRequireDefault(require("cors"));
 _dotenv["default"].config();
 var app = (0, _express["default"])();
 app.use(_bodyParser["default"].json({
@@ -17,6 +18,7 @@ app.use(_bodyParser["default"].urlencoded({
 app.use(_express["default"].json({
   limit: '200mb'
 }));
+app.use((0, _cors["default"])());
 app.get('/', function (req, res) {
   res.send('not only hello world yeah it is not the only');
 });

@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-
+import cors from 'cors';        
 
 dotenv.config();
 const app = express();
@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: '200mb' }));
-
+app.use(cors()); 
 app.get('/', (req, res) => {
   res.send('not only hello world yeah it is not the only')
 });
