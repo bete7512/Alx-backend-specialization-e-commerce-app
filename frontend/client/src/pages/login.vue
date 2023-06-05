@@ -8,8 +8,8 @@
                 @submit.preventDefault="onSubmit" :validation-schema="schema" v-slot="{ errors }">
                 <div class="space-y-10">
                     <div class="space-y-3">
-                        <label>Email</label>
-                        <Field name="email" type="text" v-model="email" placeholder="enter your email"
+                        <label>Phone</label>
+                        <Field name="email" type="text" v-model="email" placeholder="Enter your Phone Number"
                             class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                             :class="{ 'is-invalid': errors.email }" />
                         <div class="text-red-700">{{ errors.email }}</div>

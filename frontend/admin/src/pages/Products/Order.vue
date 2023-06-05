@@ -9,6 +9,7 @@
           <tr>
             <th class="py-3 px-2">Product name</th>
             <th class="py-3 px-2">Customer name</th>
+            <th class="py-3 px-2">Customer Phone</th>
             <th class="py-3 px-2">Price</th>
             <th class="py-3 px-2">Order Date</th>
             <th class="py-3 px-2">Quantity</th>
@@ -39,6 +40,9 @@
             <td class="py-3 px-2">{{ order.product?.product_name }}</td>
             <td class="py-3 px-2">
               {{ order.customer?.first_name }} {{ order.customer?.last_name }}
+            </td>
+            <td class="py-3 px-2">
+              {{ order.customer?.phone }} 
             </td>
             <td class="py-3 px-2">{{ order.product?.price }}</td>
             <td class="py-3 px-2">{{ order.created_at.split("T")[0] }}</td>
@@ -87,6 +91,7 @@
           email
           last_name
           first_name
+          phone
           address
         }
         status

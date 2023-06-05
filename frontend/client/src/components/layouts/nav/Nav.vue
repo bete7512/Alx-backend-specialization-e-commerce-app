@@ -114,15 +114,15 @@
                 >
                   Profile
                 </router-link>
-                <a
+                <!-- <a
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                  >Announcement</a
-                >
+                  >Announcement</a -->
+                <!-- > -->
 
                 <button
                   @click="logout"
-                  class="block px-4 py-2 w-full justify-start text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+                  class=" px-4 -mt-1 py-2 flex w-full justify-start text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
                 >
                   Log out
                 </button>
