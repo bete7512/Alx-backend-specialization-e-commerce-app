@@ -6,7 +6,7 @@
       <div class="flex justify-between items-center px-4 pt-3">
         <div></div>
         <button
-          class="p-3 hover:bg-red-800 rounded-lg"
+          class="p-3 hover:bg-black text-black hover:text-white rounded-lg"
           @click="() => emits('close')"
         >
           <svg
@@ -75,7 +75,7 @@
         </button>
         <button
           v-if="card2 && adding_product"
-          class="px-10 py-3 bg-cyan-700 rounded-lg"
+          class="px-10 py-3 capitalize bg-cyan-700 rounded-lg"
         >
           <svg
             role="status"
@@ -107,7 +107,6 @@ import * as Yup from "yup";
 import Card1 from "./Card1.vue";
 import Card2 from "./Card2.vue";
 import { ref, onMounted } from "vue";
-import { defineEmits } from "vue";
 import { ProductStore } from "../../../stores/ProductStores";
 const activeClass = ref("bg-blue-800 border-blue-800");
 const activeLine = ref("");
@@ -117,6 +116,7 @@ const card1 = ref(true);
 const card2 = ref(false);
 const product = ProductStore();
 const adding_option = ref(false);
+const emits = defineEmits(["close"]); 
 const adding_product = ref(false);
 const next = () => {
   if (card1.value == true) {
@@ -142,12 +142,13 @@ const onSubmit = async () => {
     console.log(done);
     console.log("product succefully added");
   }
-  card2.value = false;
-  card1.value = true;
+  // card2.value = false;
+  // card1.value = true;
   adding_product.value = false;
+  emits("close"); 
   // router.push('/dashboard')
 };
-const emits = defineEmits(["close", "delete"]);
+// const emits = defineEmits(["close", "delete"]);
 </script>
 
 <style>

@@ -9,6 +9,7 @@ import {
 } from "../Constants/Query/query";
 import router from "../router/index";
 import { ref, computed } from "vue";
+import { notify } from "@kyvg/vue3-notification";              
 provideApolloClient(apolloclient);
 export const ProductStore = defineStore("product", {
   state: () => ({
@@ -67,11 +68,20 @@ export const ProductStore = defineStore("product", {
             price: this.price,
           },
         });
+        notify({
+          type: "success",          
+          text: "Product Added Successfully",           
+        })
         console.log(response);
       } catch (err) {
         console.log(err);
+        notify({
+          type: "error",
+          text: err.message,                  
+        })
         return err;
       }
+      this.adding_product = false;        
     },
     async category() {
       const { data } = await apolloclient.query({
@@ -119,7 +129,7 @@ const fileupload = async (object) => {
     return response.data.fileupload.file_path;
   } catch (error) {
     console.log(error);
-    alert(error); 
+    // alert(error); 
     return error;
   }
 };

@@ -28,9 +28,12 @@
       </div>
 
       <div v-if="error">{{ error }}</div>
-      <div v-if="loading" class="h-full flex justify-center items-center w-full">
+      <div
+        v-if="loading"
+        class="h-full flex justify-center items-center w-full"
+      >
         <div class="flex justify-center h-full items-center">
-          <div class="w-full ">
+          <div class="w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="96"
@@ -229,21 +232,35 @@
               >
                 {{ result.products_by_pk.about_product }}
               </div>
+              <div class="flex items-center">
+                <button
+                  @click="decrementQuantity"
+                  class="p-2 bg-gray-200 rounded"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18 12H6"/></svg>                </button>
+                <span class="mx-2">{{ quantity }}</span>
+                <button
+                  @click="incrementQuantity"
+                  class="p-2 bg-gray-200 rounded"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"/><path fill="currentColor" d="M11 20a1 1 0 1 0 2 0v-7h7a1 1 0 1 0 0-2h-7V4a1 1 0 1 0-2 0v7H4a1 1 0 1 0 0 2h7v7Z"/></g></svg>
+                </button>
+              </div>
               <div class="flex space-x-2">
                 <button
-                  v-if="!result.products_by_pk.is_carted"
+                 
                   @click="add_cart(result.products_by_pk.id)"
                   class="flex w-auto p-10 capitalize py-4 my-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   add to cart
                 </button>
-                <button
+                <!-- <button
                   v-else
                   @click="remove_cart(result.products_by_pk.id)"
                   class="flex w-auto capitalize p-10 py-4 my-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-red-700 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   remove from cart
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -275,7 +292,9 @@
                 </div>
                 <button class="text-orange-600 hover:underline">
                   {{
-                    (comment.customer?.first_name, comment.customer?.last_name)
+                    comment.customer?.first_name +
+                    " " +
+                    comment.customer?.last_name
                   }}
                 </button>
               </div>
@@ -471,11 +490,11 @@ import router from "../../router";
 const props = defineProps({
   id: String,
 });
-const emits = defineEmits(["refetch","close"]); 
+const emits = defineEmits(["refetch", "close"]);
 const product_id = ref(props.id);
 console.log("am product ID", product_id.value);
 // const emits = defineEmits(["close"]);
-const { error, loading, result,refetch } = useQuery(
+const { error, loading, result, refetch } = useQuery(
   gql`
     query MyQuery($id: uuid = "") {
       products_by_pk(id: $id) {
@@ -518,7 +537,15 @@ const { error, loading, result,refetch } = useQuery(
     id: props.id,
   })
 );
-
+const quantity = ref(1);
+function incrementQuantity() {
+  quantity.value++;
+}
+function decrementQuantity() {
+  if (quantity.value > 0) {
+    quantity.value--;
+  }
+}
 console.log(typeof props.id);
 console.log(typeof product_id);
 const comment = ref("");
@@ -545,7 +572,7 @@ const add_comment = async () => {
   }
   let res = await product.add_comment(props.id, rate.value, comment.value);
   console.log(res);
-  emits("refetch") 
+  emits("refetch");
   refetch();
 };
 
@@ -556,10 +583,10 @@ const add_cart = async (id) => {
     // location.reload();
   }
 
-  let res = await product.add_cart(props.id, 1);
+  let res = await product.add_cart(props.id, quantity.value);
   console.log(res);
-  emits("refetch") 
-  refetch();     
+  emits("refetch");
+  refetch();
 };
 
 const remove_cart = async (id) => {
@@ -571,8 +598,8 @@ const remove_cart = async (id) => {
 
   let res = await product.remove_cart(props.id);
   console.log(res);
-  emits("refetch") 
-  refetch(); 
+  emits("refetch");
+  refetch();
 };
 </script>
 <style></style>

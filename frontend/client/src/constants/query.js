@@ -20,16 +20,33 @@ mutation MyMutation($fname: String = "", $lname: String = "", $password: String 
 
 
 export const USER_PROFILE = gql`
-  query MyQuery($id: uuid = "") {
-    customers(where: { id: { _eq: $id } }) {
-      last_name
-      phone
-      first_name
-      email
-      created_at
-      avator
-    }
+query MyQuery($id: uuid = "") {
+  customers(where: { id: { _eq: $id } }) {
+    last_name
+    phone
+    first_name
+    email
+    created_at
+    avator
   }
+  order {
+    status
+    product {
+      about_product
+      price
+      product_description
+      product_image
+      product_name
+      quantity
+      category {
+        name
+      }
+      id
+    }
+    created_at
+    quantity
+  }
+}
 `;
 
 export const GET_ALL_PRODUCTS = gql`
@@ -73,6 +90,8 @@ export const CATEGORY = gql`
 export const CART_QUERY = gql`
 query MyQuery {
   cart {
+    quantity
+    id
     product {
       about_product
       average_rates
@@ -93,7 +112,7 @@ query MyQuery {
       is_ordered
       average_rate
     }
-    quantity
+    
   }
 }
 `

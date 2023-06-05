@@ -9,7 +9,7 @@ const getHeaders = () => {
     return headers;
   };
 const httpLink = createHttpLink({
-    uri:'https://alx-full-stack.hasura.app/v1/graphql',
+    uri:'https://gulit.hasura.app/v1/graphql',
     fetch,
     headers:getHeaders()
 })

@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="flex justify-center items-center h-20 w-full">
-    copyright Protected @2022
+    copyright Protected @2023
   </div>
 </template>
 

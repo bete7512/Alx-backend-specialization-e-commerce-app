@@ -41,10 +41,10 @@
             </div>
             <div class="flex flex-col justify-center items-start">
                 <p class="text-2xl font-semibold">{{ result.customers_aggregate.aggregate.count }}</p>
-                <p class="text-sm font-semibold">Total Reviews</p>
+                <p class="text-sm font-semibold">Total Customers</p>
             </div>
         </div>
-        <!-- <div
+        <div
             class="sm:w-64 w-full sm:px-0 px-5 h-28 flex justify-center  items-center space-x-2 bg-white mt-4 rounded-lg">
             <div class="flex justify-center items-center h-20 w-20 rounded-full bg-blue-900">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-cart"
@@ -54,10 +54,10 @@
                 </svg>
             </div>
             <div class="flex flex-col justify-center items-start">
-                <p class="text-2xl font-semibold">{{ result.customers_aggregate.aggregate.count }}</p>
-                <p class="text-sm font-semibold">Total Reviews</p>
+                <p class="text-2xl font-semibold">{{ result.users_aggregate.aggregate.count }}</p>
+                <p class="text-sm font-semibold">Total Sellers</p>
             </div>
-        </div> -->
+        </div>
     </div>
     <chart></chart>
 </template>
@@ -67,7 +67,7 @@ import gql from 'graphql-tag'
 import { useQuery } from '@vue/apollo-composable'
 import chart from './cards/chart.vue'
 const { error, loading, result } = useQuery(gql`
-query MyQuery {
+query MyQuery($_eq: String = "sellers") {
   order_aggregate {
     aggregate {
       count(distinct: false)
@@ -79,6 +79,11 @@ query MyQuery {
     }
   }
   products_aggregate {
+    aggregate {
+      count(distinct: false)
+    }
+  }
+  users_aggregate(where: {role: {name: {_eq: $_eq}}}) {
     aggregate {
       count(distinct: false)
     }

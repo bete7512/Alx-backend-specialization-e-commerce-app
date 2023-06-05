@@ -4,6 +4,7 @@ import apolloclient from "../apollo.config";
 import { CATEGORY, GET_ALL_PRODUCTS } from "../constants/query";
 import router from "../router/index";
 import gql from "graphql-tag";
+import { notify } from "@kyvg/vue3-notification";        
 provideApolloClient(apolloclient);
 export const ProductStore = defineStore("products", {
   state: () => ({
@@ -11,6 +12,9 @@ export const ProductStore = defineStore("products", {
     category: "",
     products: [],
     search: "",
+    quantity: 1,
+    cart_id:'',
+    product_id: ""
   }),
   actions: {
     async getCategories() {
@@ -56,9 +60,17 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
+        notify({ 
+          type: "success",         
+          text: "Product added to cart"         
+        })
         return response;
       } catch (error) {
         console.log(error);
+        notify({
+          type: "error",        
+          text: "Product already in cart"     
+        })
         return error.message;
       }
     },
@@ -84,11 +96,17 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        
-
+      notify({
+        type: "success",       
+        text: "Product added to favorite"    
+      })
         return response;
       } catch (error) {
         console.log(error);
+        notify({
+          type: "error",      
+          text: "Product already in favorite"        
+        })
         return error.message;
       }
     },
@@ -111,11 +129,17 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-        
-
+        notify({
+          type: "success",        
+          text: "Product removed from favorite"      
+        })
         return response;
       } catch (error) {
         console.log(error);
+        notify({
+          type: "error",      
+          text: "Product already removed from favorite"           
+        })
         return error.message;
       }
     },
@@ -157,7 +181,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-
         return response;
       } catch (error) {
         console.log(error);
@@ -183,7 +206,6 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response);
-
         return response;
       } catch (error) {
         console.log(error);
@@ -219,6 +241,11 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response.data);
+        notify({
+          type: "success",       
+          text: "Comment added successfully"         
+        })
+        return response.data
       } catch (error) {
         console.log(error);
       }
@@ -243,6 +270,10 @@ export const ProductStore = defineStore("products", {
           },
         });
         console.log(response.data);
+        notify({
+          type: "success",       
+          text: "Product added to cart"          
+        })
         return response.data;
       } catch (error) {
         console.log(error);
@@ -271,30 +302,34 @@ export const ProductStore = defineStore("products", {
         console.log(error);
       }
     },
-    async add_order(id) {
+    async add_order(address) {
       if (!localStorage.getItem("ClientToken")) {
         console.log("not logged in");
         router.push("/login");
         return;
       }
-      console.log("well initiated", id );
       try {
+        console.log("am variable detector",this.product_id, this.cart_id, this.quantity, address);         
         const response = await apolloclient.mutate({
           mutation: gql`
-            mutation MyMutation(
-              $product_id: String = "8b2cc37a-9a17-4995-98ec-f84a4983c6fb"
-            ) {
-              add_order(inputs: { product_id: $product_id }) {
-                check_out
-              }
+          mutation MyMutation($product_id: String = "", $cart_id: String = "", $quantity: Int = 1, $address: String = "") {
+            add_order(inputs: {product_id: $product_id, cart_id: $cart_id, quantity: $quantity, address: $address}) {
+              check_out
             }
+          }
+          
+          
           `,
           variables: {
-            product_id: id,
+            product_id: this.product_id,
+            cart_id: this.cart_id,
+            quantity: this.quantity,    
+            address: address,
           },
         });
         console.log(response);
         location.replace(response.data.add_order.check_out);
+    
         return response.data.add_order.check_out;
       } catch (err) {
         console.log(err);

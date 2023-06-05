@@ -39,6 +39,7 @@ export const UserStore = defineStore("user", {
                 })
                 console.log(response);
                 localStorage.setItem('SellerToken', response.data.login.accestoken)
+                localStorage.setItem('Seller_id', response.data.login.id)
                 // console.log(localStorage.getItem('SellerToken'));
                 if(localStorage.getItem('SellerToken')){
                     router.push('/')

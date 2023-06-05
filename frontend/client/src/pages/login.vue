@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center h-screen px-6 bg-gray-200">
         <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
             <div class="flex items-center justify-center">
-                <span class="text-2xl font-semibold text-gray-700">Login</span>
+                <span class="text-2xl font-semibold text-gray-700">Login As Buyer</span>
             </div>
             <Form class=" justify-center space-y-6 bg-white   items-center  p-b-10 px-10"
                 @submit.preventDefault="onSubmit" :validation-schema="schema" v-slot="{ errors }">
@@ -44,6 +44,8 @@
                     </button>
                     <div class="text-blue-900">
                         <router-link to="/signup">Signup</router-link>
+                        <br>
+                        <a href="http://localhost:5174/login">Login As Seller</a>
                         <br>
                         <router-link to="/login">Forgot password</router-link>
                     </div>

@@ -23,6 +23,7 @@ mutation MyMutation($fname: String = "Viva", $lname: String = "Mini", $password:
 const PRODUCT_QUERY = gql`
 query MyQuery {
   products {
+    quantity
     product_name
     updated_at
     product_image

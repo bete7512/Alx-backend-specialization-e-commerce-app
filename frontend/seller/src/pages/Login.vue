@@ -2,13 +2,17 @@
     <div class="flex items-center justify-center h-screen px-6 bg-gray-200">
         <div class="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
             <div class="flex items-center justify-center">
-                <span class="text-2xl font-semibold text-gray-700">Login</span>
+                <span class="text-2xl font-semibold text-gray-700">Login As Seller</span>
+            </div>
+            <div class="flex justify-center items-center">
+
+                <!-- <span class="text-2xl font-semibold text-gray-700">Well come to Gulit</span> -->
             </div>
             <Form class=" justify-center space-y-6 bg-white   items-center  p-b-10 px-10"
                 @submit.preventDefault="onSubmit" :validation-schema="schema" v-slot="{ errors }">
                 <div class="space-y-10">
                     <div class="space-y-3">
-                        <label>Email</label>
+                        <label>Phone</label>
                         <Field name="email" type="text" v-model="email" placeholder="enter your email"
                             class="block w-full px-5 py-3 text-base text-neutral-600 placeholder-gray-300 transition duration-500 ease-in-out transform border border-transparent rounded-lg bg-gray-50 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-300"
                             :class="{ 'is-invalid': errors.email }" />
@@ -44,6 +48,8 @@
                     </button>
                     <div class="text-blue-900">
                         <router-link to="/signup">Signup</router-link>
+                        <br>
+                        <a href="http://localhost:5173/login">Login As Buyer</a>
                         <br>
                         <router-link to="/login">Forgot password</router-link>
                     </div>

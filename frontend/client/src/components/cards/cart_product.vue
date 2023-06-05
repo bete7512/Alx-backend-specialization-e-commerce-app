@@ -51,7 +51,7 @@
         </div>
       </button>
     </div>
-    <div class="flex flex-grow"></div>
+    <!-- <div class="flex flex-grow">{{ id }}</div> -->
     <div class="p-5 h-[50%]">
       <button @click="send_to_parent(product.id)">
         <div>
@@ -112,26 +112,20 @@
       </div>
       <div class="line-clamp-3">{{ product.about_product }}</div>
       <div>
-        {{ formattedDate }}
+        Quantity: <span>{{ quantity }}</span>
       </div>
-      <!-- <div class="shadow-black bg-white p-8 rounded-lg"> -->
-
-      <!-- <div class=" ml-2 "> -->
-        <button
-          v-if="!product?.is_ordered"
-          @click="products.add_order(product.id)"
-          class="bg-blue-700 bottom-0 text-center rounded-lg hover:bg-[#a02f05] text-white font-bold py-2 px-4"
-        >
-          Order
-        </button>
-        <button
-          v-else
-          class="bg-green-500 bottom-0 capitalize rounded-lg text-center text-white font-bold py-2 px-4"
-        >
-          ordered
-        </button>
-        <!-- </div> -->
-      <!-- </div> -->
+      <div>
+        Single Price: <span>{{ product.price }}</span>
+      </div>
+      <div>
+        Total Price: <span>{{ quantity * product.price }}</span>
+      </div>
+      <button
+        @click="add_order(product.id)"
+        class="bg-blue-700 bottom-0 text-center rounded-lg hover:bg-[#a02f05] text-white font-bold py-2 px-4"
+      >
+        Order
+      </button>
     </div>
   </div>
 </template>
@@ -141,19 +135,25 @@ import { defineProps, reactive, ref, defineEmits } from "vue";
 import StarRating from "vue-star-rating";
 import { ProductStore } from "../../stores/product_store";
 import router from "../../router";
-
 const props = defineProps({
   product: {
     type: Object,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
 });
-
-console.log(props.product);
+const product_id = ref('')
 const emits = defineEmits(["detail", "refetch"]);
 const date = new Date(props.product.created_at);
-const formattedDate = date.toLocaleString();
 const products = ProductStore();
+
 const managefavorite = async (id, isfavorite) => {
   if (!localStorage.getItem("ClientToken")) {
     router.push("/login");
@@ -179,6 +179,16 @@ const managelikes = async (id, isliked) => {
 const send_to_parent = (id) => {
   emits("detail", id);
 };
+function add_order(id) {
+  if (!localStorage.getItem("ClientToken")) {
+    router.push("/login");
+    return;
+  }
+  products.product_id=id
+  products.cart_id=props.id       
+  products.quantity=props.quantity        
+  router.push(`/order/${id}`); 
+}     
 </script>
 
 <style></style>

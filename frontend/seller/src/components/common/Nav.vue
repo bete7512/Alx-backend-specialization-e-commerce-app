@@ -103,7 +103,7 @@ const isOpen = ref(false)
 //array of numbers
 const logout = ()=>{
     console.log(localStorage.getItem('Apollotoken'));
-    localStorage.removeItem('Apollotoken')
+    localStorage.removeItem('SellerToken')
     router.push('/login')
 }
 </script>

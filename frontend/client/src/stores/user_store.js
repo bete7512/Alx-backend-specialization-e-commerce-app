@@ -7,8 +7,9 @@ import router from '../router/index'
 provideApolloClient(apolloclient);
 export const UserStore = defineStore("user", {
     state: () => ({
-        user:{},
+        Client:{},
         userLoggedin:localStorage.getItem('ClientToken') ? true : false,
+        client_id: ''
     }),
     actions: {
         async signup(fname, lname, phone, password,gender,age){
@@ -44,11 +45,14 @@ export const UserStore = defineStore("user", {
                     }
                 })
                 localStorage.setItem('ClientToken', response.data.login.accestoken)
+                localStorage.setItem('client_id', response.data.login.id)    
+                console.log(localStorage.getItem('client_id'));
                 console.log("njhnjhhhhhhhhhhhhhhhhhhhhhhhjh",response.data);
                 if(window.localStorage.getItem('ClientToken')){
                     await this.user_profile(response.data.login.id)
                     router.push('/')
                 }
+                location.replace('/')
                 return response.data
             } catch (err) {
                 console.log(err);
@@ -64,8 +68,9 @@ export const UserStore = defineStore("user", {
                     }
                 })
                 console.log(response.data);
-                this.user = response.data
-                return response.data
+                this.Client = response.data.customers[0]
+                console.log(this.Client,"user");
+                return response.data.customers[0]
             }catch(err){
                 console.log(err);
                 return err.message
@@ -76,5 +81,10 @@ export const UserStore = defineStore("user", {
     },
     getters: {
 
+    },
+    persist: {
+        enabled: true,
+        mode: "localSession"
     }
+
 })

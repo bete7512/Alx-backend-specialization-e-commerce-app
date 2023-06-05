@@ -3,7 +3,7 @@
       <div
         class=" py-3 px-5 dark:bg-neutral-700 dark:text-neutral-200"
       >
-        Service Requests last year
+       Products
       </div>
       <!-- <div class="canvas-wrapper">
           <canvas ref="chart"></canvas>

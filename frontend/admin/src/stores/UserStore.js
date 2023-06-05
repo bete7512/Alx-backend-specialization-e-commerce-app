@@ -33,5 +33,9 @@ export const UserStore = defineStore("user", {
     },
     getters: {
 
+    },
+    persist: {
+        enabled: true,
+        mode: "localSession"
     }
 })

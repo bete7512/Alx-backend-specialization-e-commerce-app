@@ -1,6 +1,6 @@
 <template>
   <div v-if="error">{{ error }}</div>
-  <div v-if="loading">
+  <div v-else-if="loading">
     <div class="flex justify-center h-screen items-center">
       <div class="w-full">
         <svg
@@ -154,10 +154,83 @@
       </div>
     </div>
   </div>
-  
   <div
+    v-else
+    class="lg:flex mt-24 block justify-center w-screen mx-10 lg:space-x-2 lg:space-y-0 space-y-3 mb-4"
+  >
+    <div
+      class="flex bg-white relative rounded-lg shadow-lg border py-6 border-gray-300 p-3 mx-2 justify-center"
+    >
+      <div></div>
+      <div class="space-y-2 w-full px-4">
+        <div class="w-full flex justify-center items-center">
+          <img
+            src="../assets/man.png"
+            alt="technician.first_name"
+            class="w-32 -m-px h-32 rounded-full object-cover bg-slate-200"
+          />
+        </div>
+        <div class="space-y-2 w-full flex justify-center items-center">
+          <div class="space-y-2 w-full">
+            <div class="flex justify-between">
+              <h1 class="font-bold text-2xl">
+                {{ users?.first_name + " " + users?.last_name }}
+              </h1>
+            </div>
+
+            <div class="flex w-full justify-between items-center">
+              <div>
+                <h1 class="text-black font-bold">
+                  <span class="">Phone</span>
+                </h1>
+                <p class="space-x-2">
+                  <span><font-awesome-icon :icon="['fas', 'phone']" /></span>
+                  <span>
+                    {{ users?.phone }}
+                  </span>
+                </p>
+              </div>
+              <div class="flex space-x-1 text-gray-700 items-center">
+                <div>
+                  <h1 class="text-black font-bold">Registration Date</h1>
+                  <p>{{ users?.created_at.split("T")[0] }}</p>
+                </div>
+              </div>
+            </div>
+            <button
+              @click="resetPassword = !resetPassword"
+              class="px-2 py-2 bg-blue-900 text-stone-50 rounded-lg"
+            >
+              Reset Password
+            </button>
+            <div v-if="resetPassword" class="flex space-x-2">
+              <div class="space-y-2">
+                <input
+                  class="w-full rounded-lg border outline-none p-1 text-black"
+                  type="password"
+                  placeholder="New Password"
+                  v-model="password"
+                />
+                <input
+                  class="w-full rounded-lg border outline-none p-1 text-black"
+                  type="password"
+                  placeholder="Confirm Password"
+                  v-model="confirmPassword"
+                />
+                <button
+                  @click="update_user_password"
+                  class="px-2 py-1 bg-blue-900 text-stone-50 rounded-lg"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h1 class=" ">Order History</h1>
+        <div
     class="w-screen mt-20 flex justify-center items-center"
-    v-if="products.length == 0"
+    v-if="orders.length == 0"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -203,105 +276,136 @@
       <circle cx="433.63626" cy="105.17383" r="12.18187" fill="#fff" />
     </svg>
   </div>
+  
+        <div
+          class="w-full container grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 justify-center space-x-2"
+        >
+          <div
+            class="pt-5 relative px-4 flex justify-center"
+            v-for="order in orders"
+            :key="order.id"
+          >
+            <div
+              class="card justify-between h-full p-3 hover:border hover:shadow-xl hover:border-sky-800 duration-100 mt-2 hover:scale-100 sm:px-0 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+            >
+              <div class="relative">
+                <img
+                  class="rounded-t-lg"
+                  :src="order.product.product_image.split(',')[0]"
+                />
+                <div class="absolute top-2 right-2">
+                  <span
+                    :class="[order.status ? 'bg-green-500' : 'bg-red-500']"
+                    class="px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-full"
+                    >{{ order.status ? "Delivered" : "Pending" }}</span
+                  >
+                </div>
+              </div>
+              <div class="flex flex-grow"></div>
+              <div class="p-5 h-[50%]">
+                <div>
+                  <h5
+                    class="mb-2 hover:underline text-lg font-bold tracking-tight text-gray-900 dark:text-white"
+                  >
+                    <strong class="text-xl">{{
+                      order.product.product_name
+                    }}</strong>
+                  </h5>
+                </div>
 
-  <div
-    v-else
-    class="mt-16 container grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 justify-center space-x-2"
-  >
-    <div
-      class="pt-5 relative px-4 flex justify-center"
-      v-for="product in products"
-    >
-    <Product
-          :product="product.product"
-          :id="product.id"
-          v-on:detail="handle_detail"
-          :quantity="product.quantity"
-        ></Product>
+                <div class="line-clamp-3">
+                  {{ order.product.about_product }}
+                </div>
+                <div class="line-clamp-3">
+                  <span class="text-lg font-bold"> Price: </span>
+                  <span> {{ order.product.price }}$</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
   </div>
-  <div class="flex justify-end mr-2 mt-4 pb-5">
-    <div class="inline-flex space-x-1">
-      <button
-        @click="prev_page()"
-        class="text-gray-700 font-bold py-2 px-4 rounded-l"
-      >
-        <font-awesome-icon :icon="['fas', 'arrow-left']" />
-      </button>
-
-      <button
-        @click="next_page()"
-        class="text-gray-700 font-bold py-2 px-4 rounded-r"
-      >
-        <font-awesome-icon :icon="['fas', 'arrow-right']" />
-      </button>
-    </div>
-  </div>
-  <product_detail
-    v-if="is_product_detail"
-    :id="product_id"
-    v-on:close="is_product_detail = false"
-  ></product_detail>
 </template>
-
 <script setup>
-import {
-  defineProps,
-  reactive,
-  ref,
-  onMounted,
-  watchEffect,
-  computed,
-} from "vue";
-import { useQuery } from "@vue/apollo-composable";
-import Product from "../components/cards/cart_product.vue";
-import { CART_QUERY } from "../constants/query";
-import { ProductStore } from "../stores/product_store";
-import product_detail from '../components/cards/product_detail.vue'
-const offset = ref(0);
-const limit = ref(8);
-const { error, loading, result, refetch } = useQuery(CART_QUERY, {
-  offset: offset.value,
-  limit: limit.value,
+import { ref, computed, onMounted, watchEffect } from "vue";
+import { notify } from "@kyvg/vue3-notification";
+import gql from "graphql-tag";
+import { useMutation, useQuery } from "@vue/apollo-composable";
+import { UserStore } from "../stores/user_store";
+import apolloclient from "../apollo.config";
+import { USER_PROFILE } from "../constants/query";
+import * as bcrypt from 'bcryptjs'
+const user = UserStore();
+const adding_email = ref(false);
+const email = ref("");
+const user_id = ref(localStorage.getItem("client_id"));
+console.log(localStorage.getItem("client_id"));
+const { error, loading, result, refetch } = useQuery(USER_PROFILE, () => ({
+  id: user_id.value,
+}));
+const resetPassword = ref(false);
+const password = ref("");
+const confirmPassword = ref("");
+const users = computed(() => {
+  if (result.value) {
+    console.log(result.value);
+    return result.value.customers[0];
+  }
 });
-const products = computed(() => result.value?.cart ?? []);
-const product = ProductStore();
-// onMounted(async ()=>{
-//   await product.getProducts()
-// })
-console.log(products.value);
-// alert(products.value);          
-const product_id = ref("");
-const is_product_detail = ref(false);
-const handle_detail = (id) => {
-  product_id.value = id;
-  is_product_detail.value = true;
-};
-const prev_page = () => {
-  if (offset.value <= 0) return;
-  offset.value -= limit.value;
-  refetch({
-    offset: offset.value,
-    limit: limit.value,
-  });
-};
-const next_page = () => {
-  if (offset.value >= 100) return;
-  offset.value += limit.value;
-  refetch({
-    offset: offset.value,
-    limit: limit.value,
-  });
-};
+// const saltRounds = 10;
+// const salt = bcrypt.genSaltSync(10);
+var salt = bcrypt.genSaltSync(10);
 
-const add_order = async (id) => {
-  let res = await product.add_order(id);
-  refetch({
-    offset: offset.value,
-    limit: limit.value,
-  });
-};
+const orders = computed(() => {
+  if (result.value) {
+    console.log(result.value);
+    return result.value.order;
+  }
+});
+
+async function update_user_password() {
+  if (password.value !== confirmPassword.value || password.value === ""  ) {
+    notify({
+      type: "error",
+      text: "Password does not match or empty",
+    });
+    return;
+  }
+  try {
+    // alert(hashed)
+    var hash = bcrypt.hashSync(confirmPassword.value, salt);
+    const res = await apolloclient.mutate({
+      mutation: gql`
+        mutation MyMutation($id: uuid = "", $password: String = "") {
+          update_users_by_pk(
+            pk_columns: { id: $id }
+            _set: { password: $password }
+          ) {
+            id
+            password
+          }
+        }
+      `,
+      variables: {
+        id: user_id.value,
+        password: hash,
+      },
+    });
+    console.log(res);
+    notify({
+      type: "success",
+      text: "Password Updated",
+    });
+    resetPassword.value = false;
+  } catch (error) {
+    console.log(error);
+    notify({
+      type: "error",
+      text: "Error",
+    });
+  }
+}
 </script>
-
 <style></style>
