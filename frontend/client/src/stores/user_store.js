@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { provideApolloClient } from '@vue/apollo-composable';
 import apolloclient from '../apollo.config'
 import { SIGNUP,LOGIN,USER_PROFILE } from '../constants/query'
-
+import {notify} from '@kyvg/vue3-notification'
 import router from '../router/index'
 provideApolloClient(apolloclient);
 export const UserStore = defineStore("user", {
@@ -27,9 +27,18 @@ export const UserStore = defineStore("user", {
                     }
 
                 })
-                return response.data
+                notify({
+                    type: 'success',  
+                    text: 'Signup Successful',     
+                })
+                router.push('/login')     
+                return 'Success'
             } catch (err) {
                 console.log(err);
+                notify({
+                    type: 'error',   
+                    text: 'Something Were Wrong',    
+                })
                 return err.message
             }
         },
@@ -53,9 +62,17 @@ export const UserStore = defineStore("user", {
                     router.push('/')
                 }
                 location.replace('/')
+                notify({
+                    type: 'success',  
+                    text: 'Login Successful',     
+                })
                 return response.data
             } catch (err) {
                 console.log(err);
+                notify({
+                    type: 'error',
+                    text: 'Something Were Wrong'
+                })
                 return err.message
             }
         },

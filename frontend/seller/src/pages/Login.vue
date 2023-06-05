@@ -49,7 +49,7 @@
                     <div class="text-blue-900">
                         <router-link to="/signup">Signup</router-link>
                         <br>
-                        <a href="http://localhost:5173/login">Login As Buyer</a>
+                        <a href="https://gulitbuyer.netlify.app/login">Login As Buyer</a>
                         <br>
                         <router-link to="/login">Forgot password</router-link>
                     </div>

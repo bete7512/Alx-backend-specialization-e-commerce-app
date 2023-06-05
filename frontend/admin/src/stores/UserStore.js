@@ -3,6 +3,7 @@ import { provideApolloClient } from '@vue/apollo-composable';
 import apolloclient from '../apollo.config'
 import { LOGIN } from '../Constants/Query/query'
 import router from '../router/index'
+import {notify} from '@kyvg/vue3-notification'      
 provideApolloClient(apolloclient);
 export const UserStore = defineStore("user", {
     state: () => ({
@@ -24,9 +25,18 @@ export const UserStore = defineStore("user", {
                 if(window.localStorage.getItem('AdminToken')){
                     router.push('/')
                 }
-                return response.data.login.accestoken
+                notify({
+                    type: 'success', 
+                    text: 'Login Successful',      
+                })
+
+                return ''
             } catch (err) {
                 console.log(err);
+                notify({
+                    type: 'error',   
+                    text: err.message,   
+                })
                 return err.message
             }
         }

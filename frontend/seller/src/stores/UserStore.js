@@ -3,6 +3,7 @@ import { provideApolloClient } from '@vue/apollo-composable';
 import apolloclient from '../apollo.config'
 import { LOGIN,SIGNUP } from '../Constants/Query/query'
 import router from '../router/index'
+import {notify} from '@kyvg/vue3-notification'      
 provideApolloClient(apolloclient);
 export const UserStore = defineStore("user", {
     state: () => ({
@@ -22,9 +23,18 @@ export const UserStore = defineStore("user", {
                     }
 
                 })
-                return response.data
+                notify({
+                    type: 'success',      
+                    text: 'Signup Successful',    
+                })
+                router.push('/login')     
+                return ''
             } catch (err) {
                 console.log(err);
+                notify({ 
+                    type: 'error',  
+                    text: 'Something Were Wrong',    
+                })
                 return err.message
             }
         },
@@ -45,9 +55,18 @@ export const UserStore = defineStore("user", {
                     router.push('/')
                     console.log("am here");
                 }
-                return response.data.login.accestoken
+                notify({  
+                    type: 'success',    
+                    text: 'Login Successful',      
+                })
+
+                return ''
             } catch (err) {
                 console.log(err);
+                notify({  
+                    type: 'error',   
+                    text: err.message,     
+                })
                 return err.message
             }
         }

@@ -45,7 +45,7 @@
                     <div class="text-blue-900">
                         <router-link to="/signup">Signup</router-link>
                         <br>
-                        <a href="http://localhost:5174/login">Login As Seller</a>
+                        <a href="https://gulitseller.netlify.app/login">Login As Seller</a>
                         <br>
                         <router-link to="/login">Forgot password</router-link>
                     </div>
